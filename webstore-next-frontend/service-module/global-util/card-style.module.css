@@ -1,0 +1,80 @@
+.gradient {
+    background: linear-gradient(to bottom left, #33ccff 0%, #ff99cc 100%);
+}
+
+.gradientborder {
+    background:
+        linear-gradient(white, white) padding-box,
+        linear-gradient(to bottom left, #33ccff 0%, #ff99cc 100%) border-box;
+    border-radius: 20px;
+    border: 4px solid transparent;
+}
+
+
+/* Expanding Cards */
+.xpcards {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 500px;
+    gap: 10px;
+    padding-inline: 4rem;
+}
+
+.xpcard {
+    flex: 1;
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    background-size: cover;
+    background-position: center;
+    transition: flex .5s ease;
+}
+
+.xpactive {
+    flex: 5;
+}
+
+.xpcard::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background: linear-gradient(to top,
+
+            rgba(0, 0, 0, .8),
+
+            rgba(0, 0, 0, .3),
+
+            transparent);
+
+}
+
+.xpoverlay {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    color: white;
+    z-index: 2;
+    opacity: 0;
+    transition: .3s;
+}
+
+.xpactive .xpoverlay {
+    opacity: 1;
+}
+
+@media(max-width:768px) {
+    .xpcards {
+        flex-direction: column;
+        height: 700px;
+    }
+
+    .xpactive {
+        flex: 5;
+    }
+}

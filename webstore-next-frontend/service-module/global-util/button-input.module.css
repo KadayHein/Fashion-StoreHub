@@ -1,0 +1,84 @@
+/* custom button 2 */
+.stepbtn {
+    width: 150px;
+    height: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+
+    --disabled-color: #a0a0ab;
+    --success-color: #1cbd2c;
+    
+   }
+
+   .stepbtn.disabled{
+        background: var(--disabled-color);
+   }
+   .stepbtn.success{
+        background: var(--success-color);
+    }
+   
+   .stepbtn, .stepbtn span {
+    transition: 200ms;
+   }
+   
+   .stepbtn .text {
+    color: white;
+    font-weight: bold;
+   }
+
+   .stepbtn .text.left {
+    transform: translateX(35px);
+   }
+   .stepbtn .text.right {
+    transform: translateX(70px);
+   }
+   
+   .stepbtn .icon {
+    position: absolute;
+    height: 30px;
+    width: 40px;
+    color: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   }
+
+   .stepbtn .icon.left {
+    border-left: 1px solid #eee;
+    transform: translateX(100px);
+   }
+
+   .stepbtn .icon.right {
+    border-right: 1px solid #eee;
+    transform: translateX(0);
+   }
+   
+    .stepbtn.disabled:hover {
+    background: var(--disabled-color);
+   }
+   .stepbtn.success:hover {
+    background: var(--success-color);
+   }
+   
+   .stepbtn:hover .text {
+    color: transparent;
+   }
+   
+   .stepbtn:hover .icon {
+    width: 150px;
+    border-left: none;
+    border-right: none;
+    transform: translateX(0);
+   }
+
+   .stepbtn:focus {
+    outline: none;
+   }
+   
+   .stepbtn:active .icon svg {
+    transform: scale(0.8);
+   }

@@ -1,0 +1,68 @@
+/*Masked Text : image flow on text-background*/
+.maskedtext {
+    font-size: 4rem;
+    font-weight: bold;
+    font-width: 130%;
+    color: transparent;
+    background-image: url('/images/feather-bg.jpg');
+    background-size: 200%; /* Enlarged for smooth animation */
+    background-position: 0 50%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: animate-background 5s infinite alternate linear;
+}
+
+@keyframes animate-background {
+    0% {
+        background-position: 0 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+/*scrollText - marquee effect*/
+.container {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.text {
+  display: inline-block;
+  line-height: 1.2;
+}
+.animate {
+  animation: scrollText 10s linear infinite;
+}
+.animate:hover {
+  animation-play-state: paused;
+}
+
+@keyframes scrollText {
+  0% {
+    transform: translateX(0%);
+  }
+  50% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/*Circle NumberBoard*/
+.numboard{
+    color: white;
+    font-size: larger; font-weight: bold;
+    background-color: rgb(98, 66, 252);
+    position: absolute; top: -15px; left: 20px;
+    width: 50px; height: 50px; border-radius: 50%; border: 5px solid white;
+    display: flex; justify-content: center; align-items: center;
+}
+.boardtitle{
+    margin-left: 70px;
+    line-height: 7px;
+    font-size: x-large;
+    font-weight: bold;
+}

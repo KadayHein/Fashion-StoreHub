@@ -1,0 +1,145 @@
+
+type Category  {
+    id: ID
+    name: String
+    genres: [Genre]
+}
+
+type Genre {
+    id: ID
+    name: String
+    category: Category
+}
+
+type Product {
+    id: ID
+    code: String
+    name: String
+    imageUrl: String
+    price: Float
+    quantity: Int
+    discount: Float
+    genre: Genre
+    category: Category
+}
+
+type TitleRef {
+	syskey: Int
+	name: String
+}
+
+type PicRef {
+	syskey: Int
+	imageUrl: String
+	title: TitleRef
+	product: Product
+}
+
+type CartItem {
+    productId: ID
+    productImage: String
+    productName: String
+    price: Float
+    quantity: Int
+}
+
+input CartItemInput {
+    productId: ID
+    productImage: String
+    productName: String
+    price: Float
+}
+
+input ProductUploadDTO {
+    code: String
+    name: String
+    imageUrl: String
+    price: Float
+    quantity: Int
+    discount: Float
+    genre_id: Int
+}
+
+type Game {
+    id: ID
+    name: String
+    logo: String
+    imageUrl: String
+    downloadUrl: String
+    items: [Item]
+}
+
+type Item {
+    id: ID
+    name: String
+    quantity: Float
+    bonus: Float
+    price: Float
+    imageUrl: String
+    game: Game
+}
+
+type Payment {
+    id: ID
+    name: String
+    imageUrl: String
+}
+
+type Server {
+    id: ID
+    name: String
+}
+
+type Slip {
+    uid: ID
+    serverName: String
+    itemName: String
+    paymentName: String
+    quantity: Float
+    price: Float
+}
+
+input TopupInput {
+  uid: ID
+  serverId: Int
+  itemId: Int
+  paymentId: Int
+  email: String
+}
+
+type Query {
+    allCategories: [Category]
+    categoryById(id: ID): Category
+
+    allGenres: [Genre]
+    genresByCategoryId(id: ID): [Genre]
+    genreById(id: ID): Genre
+
+    allProducts: [Product]
+    productsByGenreId(id: ID): [Product]
+    productById(id: ID): Product
+
+    cartSize: Int
+    cartPrice: Float
+    allCartItems: [CartItem]
+    
+    eventSliders: [PicRef]
+    trendings: [PicRef]
+    
+    allGames: [Game]
+    searchGames(searchText: String): [Game]
+    getGameById(id: ID): Game
+    allItemsByGameId(id: ID): [Item]
+    allPayments: [Payment]
+    allServers: [Server]
+    
+}
+
+type Mutation{
+    addToCart(cartItem: CartItemInput): Int
+    removeFromCart(cartItem: CartItemInput): Int
+    removeCertainItem(cartItem: CartItemInput): Int
+    uploadProduct(product: ProductUploadDTO): Int
+    checkout(topup: TopupInput): Slip
+}
+

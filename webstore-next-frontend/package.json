@@ -1,0 +1,42 @@
+{
+  "name": "cc-webstore-next",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@apollo/client": "^4.1.6",
+    "@emotion/cache": "^11.14.0",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/icons-material": "^7.3.9",
+    "@mui/material": "^7.3.9",
+    "@mui/material-nextjs": "^7.3.9",
+    "@supabase/supabase-js": "^2.99.2",
+    "@tailwindcss/postcss": "^4.2.1",
+    "echarts-for-react": "^3.0.6",
+    "graphql": "^16.13.1",
+    "lucide-react": "^1.18.0",
+    "next": "^15.x.x",
+    "react": "^19.x.x",
+    "react-dom": "^19.x.x",
+    "react-dropzone": "^15.0.0",
+    "swiper": "^12.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "25.5.0",
+    "@types/react": "19.2.14",
+    "autoprefixer": "^10.4.27",
+    "postcss": "^8.5.8",
+    "tailwindcss": "^4.2.1",
+    "typescript": "5.9.3"
+  }
+}
