@@ -16,7 +16,7 @@ interface CheckoutContextType {
     setDeliInfo : React.Dispatch<React.SetStateAction<DeliveryInfo[]>>
 }
 
-export default function CheckoutLayout({ children }: LayoutProps<'/fashion/clientstore/checkout'>) {
+export default function CheckoutLayout({ children }) {
     const [step,setStep] = useState(0); 
     const maxstep = 4;
     const router = useRouter();
