@@ -127,22 +127,22 @@ VALUES
 (2,'Trend','2026-01-01','2026-12-31');
 
 -- Category
-INSERT INTO category (id,name)
+INSERT INTO category(name)
 VALUES
-(1,'T-Shirt'),
-(2,'Jean'),
-(3,'Pants'),
-(4,'Blouse'),
-(5,'Sneaker'),
-(6,'Shoes');
+('T-Shirt'),
+('Jean'),
+('Pants'),
+('Blouse'),
+('Sneaker'),
+('Shoes');
 
 -- Genre
-INSERT INTO genre (id,name,category_id)
+INSERT INTO genre(name, category_id)
 VALUES
-(1,'Sticker',1),
-(2,'Polo',1),
-(3,'Low-Rise',2),
-(4,'Jacket',2);
+('Sticker',1),
+('Polo',1),
+('Low-Rise',2),
+('Jacket',2);
 
 -- ==========================================
 -- RESET IDENTITY SEQUENCES
