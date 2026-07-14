@@ -110,6 +110,42 @@ type Topup = {
   email: string
 };
 
+type DeliveryMethod = "STANDARD" | "EXPRESS" | "SAME_DAY";
+
+type DeliveryStatus = "PENDING" | "CONFIRMED" | "PACKING" | "SHIPPED" | "OUT_FOR_DELIVERY" | "DELIVERED" | "CANCELLED";
+
+type DeliveryInfo = {
+
+  id?: number;
+
+  // Customer Information
+  fullName: string;
+  email: string;
+  phoneNumber: string;
+
+  // Shipping Address
+  country: string;
+  stateOrProvince: string;
+  city: string;
+  township: string;
+  postalCode: string;
+  addressLine1: string;
+  addressLine2?: string;
+
+  // Delivery
+  deliveryMethod: DeliveryMethod;
+  shippingCompany?: string;
+  trackingNumber?: string;
+  deliveryStatus: DeliveryStatus;
+  deliveryInstructions?: string;
+
+  // Timestamps
+  orderedAt?: string;
+  shippedAt?: string;
+  deliveredAt?: string;
+
+};
+
 // ===== Input Types =====
 
 type CartItemInput = {

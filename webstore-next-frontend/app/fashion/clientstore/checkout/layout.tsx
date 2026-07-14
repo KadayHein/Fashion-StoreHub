@@ -11,8 +11,8 @@ interface CheckoutContextType {
     setHeader : React.Dispatch<React.SetStateAction<string>>,
     nextstep : (() => void) | null,
     backstep : (() => void) | null,
-    deliInfo : FieldType[],
-    setDeliInfo : React.Dispatch<React.SetStateAction<FieldType[]>>
+    deliInfo : DeliveryInfo[],
+    setDeliInfo : React.Dispatch<React.SetStateAction<DeliveryInfo[]>>
 }
 
 export const CheckoutContext = createContext<CheckoutContextType | undefined>(undefined);
@@ -25,7 +25,7 @@ export const useCheckoutContext = () => {
     return context;
   };
 
-export default function CheckoutLayout({ children }: LayoutProps) {
+export default function CheckoutLayout({ children }: LayoutProps<'/fashion/clientstore/checkout'>) {
     const [step,setStep] = useState(0); 
     const maxstep = 4;
     const router = useRouter();
@@ -33,7 +33,23 @@ export default function CheckoutLayout({ children }: LayoutProps) {
     const [header,setHeader] = useState<string>("");
     // const [nextstep, setNextstep] = useState<(() => void) | null>(null);
     // const [backstep, setBackstep] = useState<(() => void) | null>(null);
-    const [deliInfo,setDeliInfo] = useState<FieldType[]>([{ label: "", name: "", value: ""}]);
+    const [deliInfo,setDeliInfo] = useState<DeliveryInfo[]>([{ 
+  fullName: "",
+  email: "",
+  phoneNumber: "",
+  country: "",
+  stateOrProvince: "",
+  city: "",
+  township: "",
+  postalCode: "",
+  addressLine1: "",
+  addressLine2: "",
+  deliveryMethod: "STANDARD",
+  deliveryStatus: "PENDING",
+  shippingCompany: "",
+  trackingNumber: "",
+  deliveryInstructions: "",
+    }]);
 
 
     const nextstep = () => {
