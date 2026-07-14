@@ -1,7 +1,7 @@
 import CardAuth from './CardAuth';
 import DeliInfo from './DeliInfo';
 import { useEffect } from 'react';
-import { useCheckoutContext } from '@/app/fashion/clientstore/checkout/layout';
+import { useCheckoutContext } from '@/app/fashion/clientstore/checkout/CheckoutContext';
 import { Avatar, Card, CardActions, CardContent, CardHeader, IconButton } from '@mui/material';
 import StepoverButton from './StepoverButton';
 import { MoreVert } from '@mui/icons-material';

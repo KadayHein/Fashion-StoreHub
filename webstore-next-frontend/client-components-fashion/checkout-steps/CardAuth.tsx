@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import radiostyle from './../../service-module/global-util/radio-input.module.css';
-import { useCheckoutContext } from '@/app/fashion/clientstore/checkout/layout';
+import { useCheckoutContext } from '@/app/fashion/clientstore/checkout/CheckoutContext';
 
 export default function CardAuth() {
 

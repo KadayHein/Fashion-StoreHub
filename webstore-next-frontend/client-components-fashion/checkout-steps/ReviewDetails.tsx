@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { TextField } from '@mui/material'
-import { useCheckoutContext } from '@/app/fashion/clientstore/checkout/layout';
+import { useCheckoutContext } from '@/app/fashion/clientstore/checkout/CheckoutContext';
 
 export default function ReviewDetails() {
 

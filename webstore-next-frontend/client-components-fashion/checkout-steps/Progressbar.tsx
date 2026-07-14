@@ -1,4 +1,4 @@
-import { CheckoutContext } from '@/app/fashion/clientstore/checkout/layout';
+import { CheckoutContext } from '@/app/fashion/clientstore/checkout/CheckoutContext';
 import React, { useContext, useEffect, useState } from 'react'
 import style from './../../service-module/global-util/progress-bar.module.css';
 

@@ -16,7 +16,7 @@ export default function StockRotation() {
     const location = usePathname();
 
     async function getCategories() {
-        await client.query({
+        await client.query<AllCategoriesResponse>({
             query: gql`
             query allCat{
             allCategories{

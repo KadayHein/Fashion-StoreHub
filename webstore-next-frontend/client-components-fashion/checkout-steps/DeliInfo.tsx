@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import formstyle from './../../service-module/global-util/form-input.module.css';
 
-import { useCheckoutContext } from '@/app/fashion/clientstore/checkout/layout';
+import { useCheckoutContext } from '@/app/fashion/clientstore/checkout/CheckoutContext';
 
 interface DeliInfo {
     customerName: string,
