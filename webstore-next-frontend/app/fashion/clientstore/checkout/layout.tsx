@@ -2,6 +2,7 @@
 import React, { createContext, useContext, useState } from 'react'
 import Progressbar from '@/client-components-fashion/checkout-steps/Progressbar';
 import { useRouter } from 'next/navigation';
+import { CheckoutContext } from './CheckoutContext';
 
 interface CheckoutContextType {
     maxstep: number,
@@ -14,15 +15,6 @@ interface CheckoutContextType {
     deliInfo : DeliveryInfo[],
     setDeliInfo : React.Dispatch<React.SetStateAction<DeliveryInfo[]>>
 }
- const CheckoutContext = createContext<CheckoutContextType | null>(null);
-
-export const useCheckoutContext = () => {
-    const context = useContext(CheckoutContext);
-    if (!context) {
-      throw new Error("useCheckoutContext must be used in component within CheckoutContext.Provider");
-    }
-    return context;
-  };
 
 export default function CheckoutLayout({ children }: LayoutProps<'/fashion/clientstore/checkout'>) {
     const [step,setStep] = useState(0); 
