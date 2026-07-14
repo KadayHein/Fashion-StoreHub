@@ -14,8 +14,7 @@ interface CheckoutContextType {
     deliInfo : DeliveryInfo[],
     setDeliInfo : React.Dispatch<React.SetStateAction<DeliveryInfo[]>>
 }
-
-export const CheckoutContext = createContext<CheckoutContextType | null>(null);
+ const CheckoutContext = createContext<CheckoutContextType | null>(null);
 
 export const useCheckoutContext = () => {
     const context = useContext(CheckoutContext);
