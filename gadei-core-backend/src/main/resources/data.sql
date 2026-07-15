@@ -118,11 +118,16 @@ VALUES
 
 (19,'JEJK001','Jean Jacket','jacket.png',3600,50,0,4);
 
+-- TitleRef
+INSERT INTO title_ref (syskey, name, valid_from, expire_at)
+VALUES
+(1,'Event','2026-01-01','2026-12-31'),
+(2,'Trend','2026-01-01','2026-12-31');
+
 -- PicRef
 INSERT INTO pic_ref
 (syskey,image_url,title_syskey,product_id)
 VALUES
-
 -- Event Slides
 (1,'slide1.png',1,NULL),
 (2,'slide2.png',1,NULL),
@@ -138,15 +143,7 @@ VALUES
 (10,NULL,2,15),
 (11,NULL,2,11);
 
--- TitleRef
-INSERT INTO title_ref (syskey, name, valid_from, expire_at)
-VALUES
-(1,'Event','2026-01-01','2026-12-31'),
-(2,'Trend','2026-01-01','2026-12-31');
-
--- ==========================================
--- RESET IDENTITY SEQUENCES
--- ==========================================
+-- RESET IDENTITY SEQUENCES - to detect current largest ID of table by PostgreSQL so it can generate Next ID correctly
 
 SELECT setval(pg_get_serial_sequence('category','id'),
               (SELECT MAX(id) FROM category));
