@@ -13,10 +13,14 @@ public class CorsConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/graphql")
-                        .allowedOrigins("*")
+                registry.addMapping("/**")
+                        .allowedOrigins(
+                            "https://fashion-storehub-4u-pi.vercel.app",
+                            "https://fashion-storehub.onrender.com"
+                        )
                         .allowedMethods("*")
-                        .allowedHeaders("*");
+                        .allowedHeaders("*")
+                        .allowCredentials(true);
             }
         };
     }
