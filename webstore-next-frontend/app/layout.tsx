@@ -38,8 +38,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="images/cclogo.png"/>
-        <title>CC-Store Hub.</title>
+        <link rel="icon" href="images/WEBLOGO.png"/>
+        <title>GD-Store Hub.</title>
       </head>
       <body>
           {children}

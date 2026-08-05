@@ -14,7 +14,7 @@ import javax.crypto.SecretKey;
 import java.util.Arrays;
 
 @Slf4j
-//@Component
+@Component
 @RequiredArgsConstructor
 public class JwtTokenProvider {
 
@@ -24,7 +24,7 @@ public class JwtTokenProvider {
         if(StringUtils.hasLength(token)){
             var jwt = Jwts.parser()
                     .verifyWith(key)
-                    .requireIssuer("com.ysc")
+                    .requireIssuer("com.gdc")
                     .build()
                     .parseSignedClaims(token);
 

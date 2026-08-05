@@ -65,7 +65,7 @@
     opacity: 50;
 }
 
-.radioInputs {
+.rippleRadio {
     position: relative;
     display: flex;
     flex-wrap: wrap;
@@ -82,17 +82,17 @@
     gap: 0.5rem;
   }
   
-  .radioInputs .radio {
+  .rippleRadio .radio {
     flex: 1 1 auto;
     text-align: center;
     position: relative;
   }
   
-  .radioInputs .radio input {
+  .rippleRadio .radio input {
     display: none;
   }
   
-  .radioInputs .radio .name {
+  .rippleRadio .radio .name {
     display: flex;
     cursor: pointer;
     align-items: center;
@@ -111,7 +111,7 @@
     overflow: hidden;
   }
   
-  .radioInputs .radio input:checked + .name {
+  .rippleRadio .radio input:checked + .name {
     background: linear-gradient(145deg, #3b82f6, #2563eb);
     color: white;
     font-weight: 600;
@@ -124,7 +124,7 @@
   }
   
   /* Hover effect */
-  .radioInputs .radio:hover .name {
+  .rippleRadio .radio:hover .name {
     background: linear-gradient(145deg, #f0f0f0, #ffffff);
     transform: translateY(-1px);
     box-shadow:
@@ -132,18 +132,18 @@
       -4px -4px 8px rgba(255, 255, 255, 0.8);
   }
   
-  .radioInputs .radio:hover input:checked + .name {
+  .rippleRadio .radio:hover input:checked + .name {
     transform: translateY(1px);
   }
   
   /* Animation */
-  .radioInputs .radio input:checked + .name {
+  .rippleRadio .radio input:checked + .name {
     animation: select 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   /* Particles */
-  .radioInputs .radio .name::before,
-  .radioInputs .radio .name::after {
+  .rippleRadio .radio .name::before,
+  .rippleRadio .radio .name::after {
     content: "";
     position: absolute;
     width: 6px;
@@ -153,12 +153,12 @@
     pointer-events: none;
   }
   
-  .radioInputs .radio input:checked + .name::before,
-  .radioInputs .radio input:checked + .name::after {
+  .rippleRadio .radio input:checked + .name::before,
+  .rippleRadio .radio input:checked + .name::after {
     animation: particles 0.8s ease-out forwards;
   }
   
-  .radioInputs .radio .name::before {
+  .rippleRadio .radio .name::before {
     background: #60a5fa;
     box-shadow: 0 0 6px #60a5fa;
     top: -10px;
@@ -166,7 +166,7 @@
     transform: translateX(-50%);
   }
   
-  .radioInputs .radio .name::after {
+  .rippleRadio .radio .name::after {
     background: #93c5fd;
     box-shadow: 0 0 8px #93c5fd;
     bottom: -10px;
@@ -175,7 +175,7 @@
   }
   
   /* Sparkles */
-  .radioInputs .radio .name::after {
+  .rippleRadio .radio .name::after {
     content: "";
     position: absolute;
     inset: 0;
@@ -189,17 +189,17 @@
     transition: opacity 0.3s;
   }
   
-  .radioInputs .radio input:checked + .name::after {
+  .rippleRadio .radio input:checked + .name::after {
     opacity: 1;
     animation: sparkle-bg 1s ease-out forwards;
   }
   
   /* Multiple particles */
-  .radioInputs .radio input:checked + .name {
+  .rippleRadio .radio input:checked + .name {
     overflow: visible;
   }
   
-  .radioInputs .radio input:checked + .name::before {
+  .rippleRadio .radio input:checked + .name::before {
     box-shadow:
       0 0 6px #60a5fa,
       10px -10px 0 #60a5fa,
@@ -207,7 +207,7 @@
     animation: multi-particles-top 0.8s ease-out forwards;
   }
   
-  .radioInputs .radio input:checked + .name::after {
+  .rippleRadio .radio input:checked + .name::after {
     box-shadow:
       0 0 8px #93c5fd,
       10px 10px 0 #93c5fd,
@@ -278,7 +278,7 @@
   }
   
   /* Ripple effect */
-  .radioInputs .radio .name::before {
+  .rippleRadio .radio .name::before {
     content: "";
     position: absolute;
     inset: 0;
@@ -292,7 +292,7 @@
     transition: opacity 0.3s;
   }
   
-  .radioInputs .radio input:checked + .name::before {
+  .rippleRadio .radio input:checked + .name::before {
     animation: ripple 0.8s ease-out;
   }
   
@@ -311,11 +311,11 @@
   }
   
   /* Glowing border */
-  .radioInputs .radio input:checked + .name {
+  .rippleRadio .radio input:checked + .name {
     position: relative;
   }
   
-  .radioInputs .radio input:checked + .name::after {
+  .rippleRadio .radio input:checked + .name::after {
     content: "";
     position: absolute;
     inset: -2px;
@@ -342,13 +342,13 @@
   }
   
 /*Hidden Radio*/
-.radio{
+.hiddenRadio{
     display: none;
 }
-.radio-input:hover {
+.hiddenRadio-input:hover {
     cursor: pointer;
 }
-.radio:checked + .radio-input {
+.hiddenRadio:checked + .radio-input {
     box-shadow: 0 0 15px 3px lightskyblue;
 }
   

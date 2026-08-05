@@ -2,10 +2,10 @@
 import { client } from '@/lib/apolloClient';
 import { gql } from '@apollo/client';
 import React, { useEffect } from 'react'
-import ItemPopup from './info-details/ItemPopup';
-import boxstyle from './../service-module/global-util/showroom-layout.module.css'
-import inputstyle from './../service-module/global-util/form-input.module.css'
-import textstyle from './../service-module/global-util/text-style.module.css'
+import ItemPopup from '../info-details/ItemPopup';
+import boxstyle from '../../service-module/global-util/showroom-layout.module.css'
+import inputstyle from '../../service-module/global-util/form-input.module.css'
+import textstyle from '../../service-module/global-util/text-style.module.css'
 import { IconButton, Tooltip, Typography } from '@mui/material';
 import FilterOptionPopover from '@/base-components/filterset/FilterOptionPopover';
 import FilterOptionDetailsList from '@/base-components/filterset/FilterOptionDetailsList';

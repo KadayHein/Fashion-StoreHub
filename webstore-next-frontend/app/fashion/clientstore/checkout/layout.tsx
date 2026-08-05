@@ -18,7 +18,7 @@ interface CheckoutContextType {
 
 export default function CheckoutLayout({ children }) {
     const [step,setStep] = useState(0); 
-    const maxstep = 4;
+    const maxstep = 5;
     const router = useRouter();
 
     const [header,setHeader] = useState<string>("");

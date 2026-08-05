@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.gdc.backend.outfitHub.dao.AccountRepo;
 
-//@Service
+@Service
 @RequiredArgsConstructor
 public class ApiUserDetailsService implements UserDetailsService {
 

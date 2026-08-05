@@ -146,6 +146,16 @@ type DeliveryInfo = {
 
 };
 
+type Role = "USER" | "ADMIN";
+
+type Account = {
+    email: string;
+    fullName: string;
+    phoneNumber: string;
+    role: Role;
+    createdAt?: string;
+}
+
 // ===== Input Types =====
 
 type CartItemInput = {
@@ -164,6 +174,17 @@ type ProductUploadDTO = {
   discount?: number;
   genre_id?: number;
 };
+
+type SignInForm = {
+    username?: string;
+    email: string;
+    password: string;
+}
+
+type SecurityInfo = {
+    token: string;
+    account: Account;
+}
 
 // ===== Query Response Types =====
 // client.query<T>() means resp.data will match type T (T = Query Response Type shown below)”
@@ -265,6 +286,10 @@ type UploadProductResponse = {
 type TopupResponse = {
   checkout?: Topup;
 };
+
+interface SignInResponse {
+    signIn: SecurityInfo;
+}
 
 }
 

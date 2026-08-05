@@ -1,6 +1,7 @@
 import { CheckoutContext } from '@/app/fashion/clientstore/checkout/CheckoutContext';
 import React, { useContext, useEffect, useState } from 'react'
 import style from './../../service-module/global-util/progress-bar.module.css';
+import { title } from 'node:process';
 
 
 export default function Progressbar() {
@@ -10,24 +11,28 @@ export default function Progressbar() {
     const flows = 
     [
         {
-            title: "Authentication",
-            step: 0
+            title: "Order Confirmation",
+            step : 0
         },
         {
-            title: "Shipping",
+            title: "Authentication",
             step: 1
         },
         {
-            title: "Review",
+            title: "Shipping",
             step: 2
         },
         {
-            title: "Payment",
+            title: "Review",
             step: 3
         },
         {
-            title: "Complete",
+            title: "Payment",
             step: 4
+        },
+        {
+            title: "Complete",
+            step: 5
         }
     ];
 

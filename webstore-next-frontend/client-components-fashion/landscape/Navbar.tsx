@@ -12,9 +12,9 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { Badge, Drawer } from '@mui/material';
 import { LocalMall, Notifications, TranslateRounded } from '@mui/icons-material';
-import CategorySidebar from '../CategorySidebar';
+import CategorySidebar from '../store-display/CategorySidebar';
 import { useClientContext } from '@/app/fashion/clientstore/layout';
-import CartSidebar from '../CartSidebar';
+import CartSidebar from '../store-display/CartSidebar';
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
@@ -54,7 +54,7 @@ function NavBar() {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <IconButton sx={{ marginRight: 2 }}>
-            <Avatar alt="Store Logo" src="/images/cclogo.png" />
+            <Avatar alt="Store Logo" src="/images/WEBLOGO.png" />
           </IconButton>
           <Typography
             variant="h6"
@@ -71,7 +71,7 @@ function NavBar() {
               textDecoration: 'none',
             }}
           >
-            CC-StoreHub.
+            GD-StoreHub.
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
@@ -112,13 +112,6 @@ function NavBar() {
                     <Notifications sx={{color: 'black', display: { xs: 'none', md: 'flex' }}} />
                 </Badge>
               </IconButton>
-              </Tooltip>
-              <Tooltip title="CC-JP Guide">
-                <IconButton href="/jpguide/clientspace" size="large" color="inherit" sx={{ p: 0, mx: 2}}>
-                    <Badge badgeContent={0} color="error">
-                        <TranslateRounded sx={{color: 'black', display: { xs: 'none', md: 'flex' }}} />
-                    </Badge>
-                </IconButton>
               </Tooltip>
           </Box>
           <Box sx={{ flexGrow: 0 }}>

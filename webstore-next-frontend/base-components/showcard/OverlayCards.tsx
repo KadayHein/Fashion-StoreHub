@@ -29,7 +29,7 @@ const images = [
 
 const ImageButton = styled(ButtonBase)(({ theme }) => ({
   position: 'relative',
-  height: 300,
+  height: 300, marginInline: 10,
   [theme.breakpoints.down('sm')]: {
     width: '100% !important', // Overrides inline-style
     height: 100,
@@ -91,7 +91,7 @@ const ImageMarked = styled('span')(({ theme }) => ({
   transition: theme.transitions.create('opacity'),
 }));
 
-export default function LandingOnCoreOfCC() {
+export default function OverlayCards() {
   const router = useRouter();
   
   const navigate = (refUrl : string) => {

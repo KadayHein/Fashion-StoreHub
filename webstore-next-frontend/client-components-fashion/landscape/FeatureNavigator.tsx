@@ -179,7 +179,7 @@ export default function FeatureNavigator() {
         <Typography variant="body1" fontWeight="light">
             For More Discounts, Coupons, Cashback & Presents.
         </Typography>
-        <Button href={"/clientstore/categories/1"} sx={{ color: "#fff",textTransform: "none", fontSize: 16, width:"fit-content", marginInlineStart:"auto"}} endIcon={<KeyboardArrowRightRounded fontSize="large"/>}>
+        <Button href={"/fashion/auth"} sx={{ color: "#fff",textTransform: "none", fontSize: 16, width:"fit-content", marginInlineStart:"auto"}} endIcon={<KeyboardArrowRightRounded fontSize="large"/>}>
           Sign up
         </Button>
     </Paper>
@@ -199,7 +199,7 @@ export default function FeatureNavigator() {
         <Typography variant="body1" fontWeight="light">
             For More Discounts, Coupons, Cashback & Presents.
         </Typography>
-        <Button href={"/clientstore/categories/1"} sx={{ color: "#fff",textTransform: "none", fontSize: 16, width:"fit-content", marginInlineStart:"auto"}} endIcon={<KeyboardArrowRightRounded fontSize="large"/>}>
+        <Button href={"/fashion/auth"} sx={{ color: "#fff",textTransform: "none", fontSize: 16, width:"fit-content", marginInlineStart:"auto"}} endIcon={<KeyboardArrowRightRounded fontSize="large"/>}>
           Apply Member
         </Button>
     </Paper>

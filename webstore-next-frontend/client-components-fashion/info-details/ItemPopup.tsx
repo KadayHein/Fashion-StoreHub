@@ -40,7 +40,6 @@ export default function ItemPopup({product, genrename, catname, open, popupClose
       };
       
     async function addToCart(){
-      alert("Add to Cart Triggered")
     try {
         await client.mutate<AddToCartResponse>({
             mutation: gql`

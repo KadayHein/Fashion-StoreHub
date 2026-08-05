@@ -99,12 +99,35 @@ type Slip {
     price: Float
 }
 
+enum Role {
+    USER
+    ADMIN
+}
+
+type Account {
+    email: String!
+    fullName: String!
+    phoneNumber: String!
+    role: Role!
+    createdAt: DateTime
+}
+
+type SecurityInfo {
+    token: String!
+    account: Account!
+}
+
 input TopupInput {
   uid: ID
   serverId: Int
   itemId: Int
   paymentId: Int
   email: String
+}
+
+input SignInForm {
+    email: String!
+    password: String!
 }
 
 type Query {
@@ -141,5 +164,6 @@ type Mutation{
     removeCertainItem(cartItem: CartItemInput): Int
     uploadProduct(product: ProductUploadDTO): Int
     checkout(topup: TopupInput): Slip
+    signIn(signInForm: SignInForm): SecurityInfo
 }
 

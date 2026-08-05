@@ -13,21 +13,21 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 
 import java.io.IOException;
 
-//@Component
+@Component
 @RequiredArgsConstructor
 public class ApiExceptionHandler implements AccessDeniedHandler, AuthenticationEntryPoint {
 
-//    private final HandlerExceptionResolver expResolver;
+   private final HandlerExceptionResolver expResolver;
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
         System.err.println("We handling user - access denied (403 forbidden)");
-//        expResolver.resolveException(request,response,null,accessDeniedException);
+       expResolver.resolveException(request,response,null,accessDeniedException);
     }
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         System.err.println("We handling user - authentication required (401 unauthorized)");
-//        expResolver.resolveException(request,response,null,authException);
+       expResolver.resolveException(request,response,null,authException);
     }
 }

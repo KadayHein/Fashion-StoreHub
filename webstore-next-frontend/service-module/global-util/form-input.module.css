@@ -1,6 +1,12 @@
 /* custom input #1 */
+.noBorder {
+  border: none;
+}
+
+.form {
+  border: solid .5px black ;
+}
 .form button , .filter button{
-    border: none;
     background: none;
     color: #8b8ba7;
   }

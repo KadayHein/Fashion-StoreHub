@@ -19,6 +19,7 @@
     height: 500px;
     gap: 10px;
     padding-inline: 4rem;
+    margin-block: 2rem;
 }
 
 .xpcard {

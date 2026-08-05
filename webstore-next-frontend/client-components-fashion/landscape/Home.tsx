@@ -43,20 +43,6 @@ export default function Home() {
     },
   },
 ];
-
-  var a = 2;
-  var b = 5;
-  var c = a + b * 5 + a / (b-1) + a ** 3;
-
-
-  const addToCart = () => {
-    console.log("Add To Cart") 
-  }
-
-  const addToWish = (e : React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation() // prevent triggering addToCart()
-    console.log("Add To Wish")
-  }
   
   return (
     <>
@@ -66,21 +52,13 @@ export default function Home() {
       <Typography sx={{ typography: {xs: "subtitle1", sm: "subtitle1", md: "h6", lg: "h6"}}} >Chan Chan Online Fashion Shopping - Be Smart - Act Less - Neat Style  - Local Distribution </Typography>
       <Typography sx={{ typography: {xs: "subtitle2", sm: "subtitle2", md: "subtitle2", lg: "subtitle1"}}} component="small">チャンチャン-通信販売　－　おしゃれに　ー　行動減少　－　カッコイイ　ー　国内配送</Typography>
     </Box>
+    <ExpandingCards/>
     <Stack width={"100%"} py={5} sx={{px : { xs: 1.5, sm: 2, md: 7, lg: 10}}}>
     <FeatureNavigator/>
     </Stack>
     <Stack width={"100%"} py={5} sx={{px : { xs: 1.5, sm: 2, md: 7, lg: 10}}}>
     <NewArrival/>
     </Stack>
-
-    <ExpandingCards/>
-
-    <div onClick={addToCart} className='card w-25'>
-      <div className='card-title'><button onClick={(e) => addToWish(e)} className='btn btn-outline-danger ms-auto'>Wish</button></div>
-      <h1>Add To Cart</h1>
-    </div>
-
-    <p>Result : c = {c}</p>
     </>
   )
 }
