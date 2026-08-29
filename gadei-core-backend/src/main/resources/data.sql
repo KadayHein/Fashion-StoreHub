@@ -70,7 +70,7 @@ CREATE TABLE account (
     full_name VARCHAR(80) NOT NULL,
     phone_number VARCHAR(50) NOT NULL,
     role VARCHAR(20) NOT NULL,
-    created_at TIMESTAMP
+    created_at TIMESTAMP NOT NULL
 );
 
 -- Category
@@ -150,19 +150,31 @@ VALUES
 -- RESET IDENTITY SEQUENCES - to detect current largest ID of table by PostgreSQL so it can generate Next ID correctly
 
 SELECT setval(
-    pg_get_serial_sequence('category','id'),
+    pg_get_serial_sequence('category', 'id'),
     COALESCE((SELECT MAX(id) FROM category), 1),
-    false
+    true
 );
 
-SELECT setval(pg_get_serial_sequence('genre','id'),
-              (SELECT MAX(id) FROM genre));
+SELECT setval(
+    pg_get_serial_sequence('genre', 'id'),
+    COALESCE((SELECT MAX(id) FROM genre), 1),
+    true
+);
 
-SELECT setval(pg_get_serial_sequence('product','id'),
-              (SELECT MAX(id) FROM product));
+SELECT setval(
+    pg_get_serial_sequence('product', 'id'),
+    COALESCE((SELECT MAX(id) FROM product), 1),
+    true
+);
 
-SELECT setval(pg_get_serial_sequence('title_ref','syskey'),
-              (SELECT MAX(syskey) FROM title_ref));
+SELECT setval(
+    pg_get_serial_sequence('title_ref', 'syskey'),
+    COALESCE((SELECT MAX(syskey) FROM title_ref), 1),
+    true
+);
 
-SELECT setval(pg_get_serial_sequence('pic_ref','syskey'),
-              (SELECT MAX(syskey) FROM pic_ref));
+SELECT setval(
+    pg_get_serial_sequence('pic_ref', 'syskey'),
+    COALESCE((SELECT MAX(syskey) FROM pic_ref), 1),
+    true
+);
