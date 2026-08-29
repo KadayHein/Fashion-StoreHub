@@ -1,5 +1,7 @@
 Full Stack E-Commerce Platform
 
+A full-stack, multilingual online fashion store built with Next.js, React, MUI, GraphQL, Spring Boot, JPA/Hibernate, and PostgreSQL, deployed using Vercel and Render.
+
 ## Tech Stack
 Frontend
 - NextJS
