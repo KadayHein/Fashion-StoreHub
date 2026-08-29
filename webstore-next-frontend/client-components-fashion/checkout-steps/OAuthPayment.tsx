@@ -16,7 +16,7 @@ import {
     CompareArrowsRounded,
     HandshakeRounded,
 } from "@mui/icons-material";
-import { useCheckoutContext } from "@/app/[locale]/fashion/clientstore/checkout/layout";
+import { useCheckoutContext } from '@/app/[locale]/fashion/clientstore/checkout/CheckoutContext';
 import { formatCurrency } from "@/service/generalUtils";
 import { URL_WEBLOGO } from "@/service/routeHandler";
 import { useAppTranslation } from "@/service/customHooks/useAppTranslation";

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import formstyle from './../../service-module/global-util/form-input.module.css';
-import { useCheckoutContext } from '@/app/[locale]/fashion/clientstore/checkout/layout';
+import { useCheckoutContext } from '@/app/[locale]/fashion/clientstore/checkout/CheckoutContext';
 import { CloseIcon, InfoIconSet } from '@/service/svgIconUtils';
 import { Button, Stack } from '@mui/material';
 import { ArrowBackRounded, CheckCircleRounded } from '@mui/icons-material';

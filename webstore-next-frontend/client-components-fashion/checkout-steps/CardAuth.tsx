@@ -6,7 +6,7 @@ import { ArrowBackRounded, CheckCircleRounded } from '@mui/icons-material';
 import { enqueueSnackbar } from 'notistack';
 import { useAppTranslation } from '@/service/customHooks/useAppTranslation';
 import { PaymentIconSet } from '@/service/svgIconUtils';
-import { useCheckoutContext } from '@/app/[locale]/fashion/clientstore/checkout/layout';
+import { useCheckoutContext } from '@/app/[locale]/fashion/clientstore/checkout/CheckoutContext';
 
 export default function CardAuth() {
 

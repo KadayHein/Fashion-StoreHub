@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { Avatar, Card, CardContent, CardHeader, IconButton } from '@mui/material';
 import { MoreVert } from '@mui/icons-material';
 import OrderConfirmation from './OrderConfirmation';
-import { useCheckoutContext } from '@/app/[locale]/fashion/clientstore/checkout/layout';
+import { useCheckoutContext } from '@/app/[locale]/fashion/clientstore/checkout/CheckoutContext';
 import OAuthPayment from './OAuthPayment';
 import PaymentComplete from './PaymentComplete';
 import { useAppTranslation } from '@/service/customHooks/useAppTranslation';

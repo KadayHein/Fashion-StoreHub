@@ -26,7 +26,7 @@ import {
     ShoppingBag,
 } from "@mui/icons-material";
 import { formatCurrency, formatDate_MM_DD, formatDate_MM_DD_YY } from "@/service/generalUtils";
-import { useCheckoutContext } from "@/app/[locale]/fashion/clientstore/checkout/layout";
+import { useCheckoutContext } from '@/app/[locale]/fashion/clientstore/checkout/CheckoutContext';
 import { useRouter } from "@/i18n/navigation";
 import { URL_CATEGORIES } from "@/service/routeHandler";
 import { useEffect } from "react";

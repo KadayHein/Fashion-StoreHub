@@ -1,7 +1,7 @@
 import React from 'react'
 import style from './../../service-module/global-util/button-input.module.css';
 import { ArrowBackRounded, ArrowForwardRounded } from '@mui/icons-material';
-import { useCheckoutContext } from '@/app/fashion/clientstore/checkout/layout';
+import { useCheckoutContext } from '@/app/[locale]/fashion/clientstore/checkout/CheckoutContext';
 
 export default function StepoverButton() {
 

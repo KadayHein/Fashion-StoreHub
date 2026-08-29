@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import style from './../../service-module/global-util/progress-bar.module.css';
-import { useCheckoutContext } from '@/app/[locale]/fashion/clientstore/checkout/layout';
+import { useCheckoutContext } from '@/app/[locale]/fashion/clientstore/checkout/CheckoutContext';
 import { useAppTranslation } from '@/service/customHooks/useAppTranslation';
 
 

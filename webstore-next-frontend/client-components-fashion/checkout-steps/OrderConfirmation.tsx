@@ -1,4 +1,4 @@
-import { useCheckoutContext } from '@/app/[locale]/fashion/clientstore/checkout/layout';
+import { useCheckoutContext } from '@/app/[locale]/fashion/clientstore/checkout/CheckoutContext';
 import { useRouter } from '@/i18n/navigation';
 import { useAppTranslation } from '@/service/customHooks/useAppTranslation';
 import { formatCurrency } from '@/service/generalUtils';
