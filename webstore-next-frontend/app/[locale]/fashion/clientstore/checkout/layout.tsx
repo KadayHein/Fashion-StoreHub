@@ -1,9 +1,9 @@
-"use client";
+
+
+                "use client";
 
 import React, {
-    createContext,
     useCallback,
-    useContext,
     useEffect,
     useState,
 } from "react";
@@ -12,50 +12,21 @@ import { useRouter } from "@/i18n/navigation";
 
 import { client } from "@/lib/apolloClient";
 import { gql } from "@apollo/client";
+
 import Progressbar from "@/client-components-fashion/checkout-steps/Progressbar";
+
 import { useAppTranslation } from "@/service/customHooks/useAppTranslation";
 import { enqueueSnackbar } from "notistack";
 
-interface CheckoutContextType {
-    maxstep: number;
+import {
+    CheckoutContext,
+} from "./CheckoutContext";
 
-    step: number;
-    setStep: React.Dispatch<React.SetStateAction<number>>;
-
-    header: string;
-    setHeader: React.Dispatch<React.SetStateAction<string>>;
-
-    nextstep: () => void;
-    backstep: () => void;
-
-    deliInfo: DeliveryInfo[];
-    setDeliInfo: React.Dispatch<React.SetStateAction<DeliveryInfo[]>>;
-
-    selectedPayment: {name: string, value: number, icon: React.JSX.Element} // temp to use via frontend object, convert into backend object integration later
-    setSelectedPayment: React.Dispatch<React.SetStateAction<{name: string, value: number, icon: React.JSX.Element}>>;
-
-    cart: CartItem[];
-    setCart: React.Dispatch<React.SetStateAction<CartItem[]>>;
-}
-
-export const CheckoutContext =
-    createContext<CheckoutContextType | null>(null);
-
-
-export function useCheckoutContext() {
-
-    const context = useContext(CheckoutContext);
-
-    if (!context) {
-        throw new Error(
-            "useCheckoutContext must be used inside CheckoutContext.Provider"
-        );
-    }
-    return context;
-}
-
-
-export default function CheckoutLayout({ children }: { children: React.ReactNode }) {
+export default function CheckoutLayout({
+    children,
+}: {
+    children: React.ReactNode;
+}) {
 
     const router = useRouter();
     const { noti } = useAppTranslation();
@@ -68,7 +39,11 @@ export default function CheckoutLayout({ children }: { children: React.ReactNode
 
     const [cart, setCart] = useState<CartItem[]>([]);
 
-    const [selectedPayment, setSelectedPayment] = useState<{name: string, value: number, icon: React.JSX.Element}>(null);
+    const [selectedPayment, setSelectedPayment] = useState<{
+        name: string;
+        value: number;
+        icon: React.JSX.Element;
+    } | null>(null);
 
     const [deliInfo, setDeliInfo] =
         useState<DeliveryInfo[]>([
@@ -92,9 +67,8 @@ export default function CheckoutLayout({ children }: { children: React.ReactNode
         ]);
 
     useEffect(() => {
-        allCartItems()
-    }, [])
-
+        allCartItems();
+    }, []);
 
     const nextstep = useCallback(() => {
 
@@ -104,8 +78,7 @@ export default function CheckoutLayout({ children }: { children: React.ReactNode
             );
         }
 
-    }, [step, router, maxstep]);
-
+    }, [step, router]);
 
     const backstep = useCallback(() => {
 
@@ -118,25 +91,33 @@ export default function CheckoutLayout({ children }: { children: React.ReactNode
     }, [step, router]);
 
     async function allCartItems() {
+
         await client.query<AllCartItemsResponse>({
             query: gql`
                 query {
-                allCartItems{
-                    productId
-                    productName
-                    productImage
-                    price
-                    quantity
+                    allCartItems {
+                        productId
+                        productName
+                        productImage
+                        price
+                        quantity
+                    }
                 }
-                }`
-            , fetchPolicy: 'network-only' // refresh graphql cache -> fetch new data
-        }).then(resp => setCart(resp.data.allCartItems))
-            .catch(err => {
-                console.log(err)
-                enqueueSnackbar(noti("fail2loadCart"), { variant: "error" });
-            })
-    }
+            `,
+            fetchPolicy: "network-only",
+        })
+        .then(resp => {
+            setCart(resp.data.allCartItems);
+        })
+        .catch(err => {
+            console.log(err);
 
+            enqueueSnackbar(
+                noti("fail2loadCart"),
+                { variant: "error" }
+            );
+        });
+    }
 
     return (
         <CheckoutContext.Provider
