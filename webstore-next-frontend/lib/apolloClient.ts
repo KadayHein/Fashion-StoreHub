@@ -5,7 +5,7 @@ const LOCAL_GRAPHQL_URL = "http://localhost:8080/graphql"
 
 export const client = new ApolloClient({
   link: new HttpLink({
-    uri: LOCAL_GRAPHQL_URL,
+    uri: PUBLIC_GRAPHQL_URL,
   }),
   cache: new InMemoryCache(),
 });

@@ -147,6 +147,8 @@
         "cartremovefailed": "カートからの商品削除に失敗しました。",
         "cartclean1": "選択した商品のすべての数量をカートから削除しました。",
         "cartclean1failed": "選択した商品の削除に失敗しました。",
+        "fail2loadSlide": "スライドの読み込みに失敗しました。",
+        "fail2loadCat": "カテゴリーの読み込みに失敗しました。",
         "fail2loadCat&Gn": "カテゴリーとジャンルの読み込みに失敗しました。",
         "fail2loadProduct": "商品の読み込みに失敗しました。",
         "fail2loadCart": "カート商品の読み込みに失敗しました。",

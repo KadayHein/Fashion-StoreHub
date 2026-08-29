@@ -10,8 +10,12 @@ import 'swiper/css/navigation';
 import 'swiper/css/thumbs'; 
 import 'swiper/css/free-mode'; 
 import { Box } from '@mui/material'
+import { enqueueSnackbar } from 'notistack';
+import { useAppTranslation } from '@/service/customHooks/useAppTranslation';
 
 export default function EventSlider() {
+
+  const { noti } = useAppTranslation();
 
   const [sliders,setSliders] = useState<PicRef[]>([])
   const [activeSlide,setActiveSlide] = useState<number>(0)
@@ -34,6 +38,9 @@ export default function EventSlider() {
           `
       }).then(resp => {
         setSliders(resp.data.eventSliders);
+      }).catch(error => {
+        console.log(error);
+        enqueueSnackbar(noti("fail2loadSlide"), { variant: "error" })
       })
   }
 

@@ -147,6 +147,7 @@
         "cartremovefailed": "Failed to remove item from Cart!",
         "cartclean1": "All of certain Item Removed from Cart!",
         "cartclean1failed": "Failed to Remove certain Item from Cart!",
+        "fail2loadSlide": "Failed to load slides.",
         "fail2loadCat": "Failed to load Categories!",
         "fail2loadCat&Gn": "Failed to load Category & Genres!",
         "fail2loadProduct": "Failed to load Products!",

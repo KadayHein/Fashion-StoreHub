@@ -9,43 +9,7 @@ import { useAppTranslation } from '@/service/customHooks/useAppTranslation'
 
 export default function Home() {
 
-  const { common, home } = useAppTranslation()
-
-  const cardsData = [
-    {
-      id: "design-excellence",
-      front: {
-        imageSrc:
-          "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400",
-        imageAlt: "Design Excellence",
-        title: "Design Excellence",
-        description:
-          "Beautiful, intuitive designs that create meaningful connections with users.",
-      },
-      back: {
-        description:
-          "We craft exceptional user experiences through thoughtful design.",
-        buttonText: "View Portfolio",
-      },
-    },
-
-    {
-      id: "data-analytics",
-      front: {
-        imageSrc:
-          "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400",
-        imageAlt: "Data Analytics",
-        title: "Data Analytics",
-        description:
-          "Transform raw data into actionable insights.",
-      },
-      back: {
-        description:
-          "Real-time analytics and predictive modeling.",
-        buttonText: "Learn More",
-      },
-    },
-  ];
+  const { home } = useAppTranslation()
 
   return (
     <>
