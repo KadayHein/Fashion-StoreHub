@@ -1,321 +1,1195 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import TableSortLabel from '@mui/material/TableSortLabel';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
-import { visuallyHidden } from '@mui/utils';
-import { Divider, Pagination, PaginationItem, Stack } from '@mui/material';
-import { DataType } from '@/types/enum';
-import FilterOptionPopover from '@/base-components/filterset/FilterOptionPopover';
-import { ArrowLeftRounded, ArrowRightRounded } from '@mui/icons-material';
-import FilterOptionSetter from '@/base-components/filterset/FilterOptionSetter';
-import FilterOptionDetailsList from '@/base-components/filterset/FilterOptionDetailsList';
+"use client";
 
-interface Data {
-  id: number;
-  calories: number;
-  carbs: number;
-  fat: number;
-  name: string;
-  protein: number;
+import React, { useMemo, useState } from "react";
+
+import {
+    Avatar,
+    Box,
+    Card,
+    Chip,
+    FormControl,
+    Grid,
+    InputAdornment,
+    InputLabel,
+    MenuItem,
+    Pagination,
+    Paper,
+    Select,
+    SelectChangeEvent,
+    Stack,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    TextField,
+    Typography,
+} from "@mui/material";
+
+import {
+    AttachMoneyRounded,
+    EmojiEventsRounded,
+    Inventory2Rounded,
+    ReceiptLongRounded,
+    SearchRounded,
+    TrendingUpRounded,
+} from "@mui/icons-material";
+
+
+// ============================================================
+// TYPES
+// ============================================================
+
+type SalesPeriod =
+    | "TODAY"
+    | "WEEK"
+    | "MONTH"
+    | "YEAR"
+    | "ALL";
+
+type SortType =
+    | "ORDERS"
+    | "QUANTITY"
+    | "REVENUE";
+
+interface BestSeller {
+    id: number;
+
+    name: string;
+
+    sku: string;
+
+    image: string;
+
+    orders: number;
+
+    quantitySold: number;
+
+    revenue: number;
+
+    averagePrice: number;
+
+    stockRemaining: number;
+
+    category: string;
 }
 
-interface HeadCell {
-    id: keyof Data;
-    label: string;
-    numeric: boolean;
-}
 
-type Order = 'asc' | 'desc';
+// ============================================================
+// MOCK DATA
+// ============================================================
 
-interface EnhancedTableProps {
-    onRequestSort: (event: React.MouseEvent<unknown>, property: keyof Data) => void;
-    order: Order;
-    orderBy: string;
-    rowCount: number;
-}
+const bestSellerData: BestSeller[] = [
 
-function createData(
-  id: number,
-  name: string,
-  calories: number,
-  fat: number,
-  carbs: number,
-  protein: number,
-): Data {
-  return {
-    id,
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
-  };
-}
+    {
+        id: 1,
+        name: "Oversized Cotton T-Shirt",
+        sku: "TSH-OS-001",
+        image:
+            "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab",
+        orders: 342,
+        quantitySold: 421,
+        revenue: 1675580,
+        averagePrice: 3980,
+        stockRemaining: 82,
+        category: "T-Shirts",
+    },
 
-const rows = [
-  createData(1, 'Cupcake', 305, 3.7, 67, 4.3),
-  createData(2, 'Donut', 452, 25.0, 51, 4.9),
-  createData(3, 'Eclair', 262, 16.0, 24, 6.0),
-  createData(4, 'Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData(5, 'Gingerbread', 356, 16.0, 49, 3.9),
-  createData(6, 'Honeycomb', 408, 3.2, 87, 6.5),
-  createData(7, 'Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData(8, 'Jelly Bean', 375, 0.0, 94, 0.0),
-  createData(9, 'KitKat', 518, 26.0, 65, 7.0),
-  createData(10, 'Lollipop', 392, 0.2, 98, 0.0),
-  createData(11, 'Marshmallow', 318, 0, 81, 2.0),
-  createData(12, 'Nougat', 360, 19.0, 9, 37.0),
-  createData(13, 'Oreo', 437, 18.0, 63, 4.0),
+    {
+        id: 2,
+        name: "Wide Leg Cargo Pants",
+        sku: "PNT-WC-002",
+        image:
+            "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f",
+        orders: 287,
+        quantitySold: 319,
+        revenue: 2225620,
+        averagePrice: 6980,
+        stockRemaining: 54,
+        category: "Pants",
+    },
+
+    {
+        id: 3,
+        name: "Minimal Leather Jacket",
+        sku: "JKT-LM-003",
+        image:
+            "https://images.unsplash.com/photo-1551028719-00167b16eac5",
+        orders: 216,
+        quantitySold: 231,
+        revenue: 2956800,
+        averagePrice: 12800,
+        stockRemaining: 21,
+        category: "Jackets",
+    },
+
+    {
+        id: 4,
+        name: "Relaxed Knit Sweater",
+        sku: "SWT-RK-004",
+        image:
+            "https://images.unsplash.com/photo-1576566588028-4147f3842f27",
+        orders: 198,
+        quantitySold: 244,
+        revenue: 1459120,
+        averagePrice: 5980,
+        stockRemaining: 67,
+        category: "Sweaters",
+    },
+
+    {
+        id: 5,
+        name: "Classic Denim Jacket",
+        sku: "JKT-DN-005",
+        image:
+            "https://images.unsplash.com/photo-1543076447-215ad9ba6923",
+        orders: 177,
+        quantitySold: 184,
+        revenue: 2022160,
+        averagePrice: 10990,
+        stockRemaining: 35,
+        category: "Jackets",
+    },
+
+    {
+        id: 6,
+        name: "Basic Heavyweight Hoodie",
+        sku: "HOD-BH-006",
+        image:
+            "https://images.unsplash.com/photo-1556821840-3a63f95609a7",
+        orders: 161,
+        quantitySold: 203,
+        revenue: 1201770,
+        averagePrice: 5980,
+        stockRemaining: 93,
+        category: "Hoodies",
+    },
+
+    {
+        id: 7,
+        name: "Straight Fit Chino Pants",
+        sku: "PNT-SC-007",
+        image:
+            "https://images.unsplash.com/photo-1473966968600-fa801b869a1a",
+        orders: 143,
+        quantitySold: 161,
+        revenue: 1123780,
+        averagePrice: 6980,
+        stockRemaining: 44,
+        category: "Pants",
+    },
+
+    {
+        id: 8,
+        name: "Premium Cotton Shirt",
+        sku: "SHT-PC-008",
+        image:
+            "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf",
+        orders: 129,
+        quantitySold: 151,
+        revenue: 901480,
+        averagePrice: 5980,
+        stockRemaining: 71,
+        category: "Shirts",
+    }
 ];
 
-function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
-}
 
-function getComparator<Key extends keyof any>(
-  order: Order,
-  orderBy: Key,
-): (
-  a: { [key in Key]: number | string },
-  b: { [key in Key]: number | string },
-) => number {
-  return order === 'desc'
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
-}
+// ============================================================
+// HELPERS
+// ============================================================
 
-const headCells: readonly HeadCell[] = [
-  {
-    id: 'name',
-    numeric: false,
-    label: 'Product Name',
-  },
-  {
-    id: 'calories',
-    numeric: true,
-    label: 'Order',
-  },
-  {
-    id: 'fat',
-    numeric: true,
-    label: 'Revenue (Yen)',
-  },
-  {
-    id: 'carbs',
-    numeric: true,
-    label: 'Carbs (g)',
-  },
-  {
-    id: 'protein',
-    numeric: true,
-    label: 'Protein (g)',
-  },
-];
+const formatYen = (value: number) =>
+    `¥${value.toLocaleString("ja-JP")}`;
 
-function EnhancedTableHead(props: EnhancedTableProps) {
-  const { order, orderBy, rowCount, onRequestSort } =
-    props;
-  const createSortHandler =
-    (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
-      onRequestSort(event, property);
-    };
 
-  return (
-    <TableHead sx={{ "& .MuiTableCell-root": { fontSize: "1rem", fontWeight: 700 } }}>
-      <TableRow>
-        {headCells.map((headCell) => (
-          <TableCell 
-            key={headCell.id}
-            align={headCell.numeric ? 'right' : 'left'}
-            padding={'normal'}
-            sortDirection={orderBy === headCell.id ? order : false}
-          >
-            <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : 'asc'}
-              onClick={createSortHandler(headCell.id)}
-            >
-              {headCell.label}
-              {orderBy === headCell.id ? (
-                <Box component="span" sx={visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                </Box>
-              ) : null}
-            </TableSortLabel>
-          </TableCell>
-        ))}
-      </TableRow>
-    </TableHead>
-  );
-}
+// ============================================================
+// COMPONENT
+// ============================================================
 
-function EnhancedTableToolbar() {
-  const [filterDataset,setFilterDataset] = React.useState<FilterDataset>();
-  const [filterAnchor, setFilterAnchor] = React.useState<HTMLButtonElement | null>(null);
-  const openFilter = (event: React.MouseEvent<HTMLButtonElement>) => setFilterAnchor(event.currentTarget);
-  const closeFilter = () => setFilterAnchor(null);
-  const options : FilterOption[] = 
-  [
-    { optionid: "1", caption: "Product Name", fieldname : "productname", datatype: DataType.STRING },
-    { optionid: "2", caption: "Order", fieldname : "order", datatype: DataType.NUMBER },
-    { optionid: "3", caption: "Income", fieldname : "income", datatype: DataType.NUMBER },
-    { optionid: "4", caption: "Revenue", fieldname : "revenue", datatype: DataType.NUMBER },
-    { optionid: "5", caption: "Updated Date", fieldname : "updateddate", datatype: DataType.DATETIME }
-  ]
-
-  return (
-    <Toolbar
-      sx={{pl: { sm: 2 },pr: { xs: 1, sm: 1 }, display: "flex"}}
-    >
-        <Typography width={800}
-          variant="h6"
-          id="tableTitle"
-          component="div"
-        >
-          Top Selling Products
-        </Typography>
-        {/* <FilterOptionDetailsList filterList={filterDataset.filterList}/> */}
-        <Tooltip title="Filter list">
-          <IconButton onClick={openFilter}>
-            <svg fill="none" height={25} viewBox="0 0 48 48" width={25} xmlns="http://www.w3.org/2000/svg"><g fill="#1575e5"><path d="m9.05118 11.7492c.04676-.8619.60665-1.5264 1.46392-1.6273.5791-.0681 1.3847-.1219 2.4849-.1219s1.9058.0538 2.4849.1219c.8573.1009 1.4172.7654 1.4639 1.6273.0291.5365.0512 1.2675.0512 2.2508s-.0221 1.7143-.0512 2.2508c-.0467.8619-.6066 1.5264-1.4639 1.6273-.5791.0681-1.3847.1219-2.4849.1219s-1.9058-.0538-2.4849-.1219c-.85726-.1009-1.41716-.7654-1.46392-1.6273-.02911-.5365-.05118-1.2675-.05118-2.2508s.02207-1.7143.05118-2.2508z"/><path d="m31.0512 7.74922c.0467-.86192.6066-1.52642 1.4639-1.62729.5791-.06813 1.3847-.12193 2.4849-.12193s1.9058.0538 2.4849.12193c.8573.10087 1.4172.76537 1.4639 1.62729.0291.53652.0512 1.26751.0512 2.25078 0 .9833-.0221 1.7143-.0512 2.2508-.0467.8619-.6066 1.5264-1.4639 1.6273-.5791.0681-1.3847.1219-2.4849.1219s-1.9058-.0538-2.4849-.1219c-.8573-.1009-1.4172-.7654-1.4639-1.6273-.0291-.5365-.0512-1.2675-.0512-2.2508 0-.98327.0221-1.71426.0512-2.25078z"/><path d="m20.0512 3.74922c.0467-.86192.6066-1.52642 1.4639-1.62729.5791-.06813 1.3847-.12193 2.4849-.12193s1.9058.0538 2.4849.12193c.8573.10087 1.4172.76537 1.4639 1.62729.0291.53652.0512 1.26751.0512 2.25078s-.0221 1.71426-.0512 2.25078c-.0467.86192-.6066 1.52642-1.4639 1.62729-.5791.06813-1.3847.12193-2.4849.12193s-1.9058-.0538-2.4849-.12193c-.8573-.10087-1.4172-.76537-1.4639-1.62729-.0291-.53652-.0512-1.26751-.0512-2.25078s.0221-1.71426.0512-2.25078z"/></g><path d="m24 16c-10.4512 0-15.78231.196-18.22305.332-1.0147.0565-1.77695.8946-1.77695 1.9109l.00001 1.9827c-.00001 1.1133.46041 2.174 1.30214 2.9026 2.09507 1.8136 6.58385 5.5273 12.48125 9.437.5103.3383.843.8893.8998 1.4989.4753 5.1049.892 8.6375 1.1236 10.4711.1065.8439.825 1.4648 1.6756 1.4648.3375 0 .6674-.0999.9481-.2871l4.4275-2.9516c.7401-.4934 1.2811-1.2241 1.4534-2.0967.2277-1.1535.5613-3.176.9363-6.5202.0686-.6123.4136-1.1614.9336-1.4921 6.2272-3.9596 10.6288-7.7314 12.6212-9.549.7815-.7129 1.1975-1.7251 1.1975-2.7828v-2.0776c0-1.0163-.7623-1.8544-1.777-1.9109-2.4407-.136-7.7718-.332-18.223-.332z" fill="#a6cfff"/></svg>
-          </IconButton>
-        </Tooltip>
-        {/* <FilterOptionSetter
-            options={options} filterDataset={filterDataset} setFilterDataset={setFilterDataset} 
-            open={Boolean(filterAnchor)} close={closeFilter}/>
-        
-        <FilterOptionPopover 
-            options={options} filterDataset={filterDataset} setFilterDataset={setFilterDataset} 
-            anchor={filterAnchor} open={Boolean(filterAnchor)} close={closeFilter}/> */}
-    </Toolbar>
-  );
-}
 export default function TopSellingProduct() {
-  const [order, setOrder] = React.useState<Order>('asc');
-  const [orderBy, setOrderBy] = React.useState<keyof Data>('calories');
-  const [page, setPage] = React.useState(1);
-  const rowsPerPage = 7;
-  const totalPages = Math.ceil(rows.length / rowsPerPage);
 
-  const handleRequestSort = (
-    event: React.MouseEvent<unknown>,
-    property: keyof Data,
-  ) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
-    setOrderBy(property);
-  };
+    const [search, setSearch] =
+        useState("");
 
-  const handleClick = (event: React.MouseEvent<unknown>, id: number) => {
+    const [period, setPeriod] =
+        useState<SalesPeriod>("MONTH");
 
-  };
+    const [sortBy, setSortBy] =
+        useState<SortType>("REVENUE");
 
-  const handleChangePage = (event: unknown, newPage: number) => {
-    setPage(newPage);
-  };
+    const [category, setCategory] =
+        useState("ALL");
 
-  // Avoid a layout jump on the last page with empty rows.
-  const emptyRows =
-    page > 0 ? Math.max(0, (page) * rowsPerPage - rows.length) : 0;
+    const [page, setPage] =
+        useState(1);
 
-  const visibleRows = React.useMemo(
-    () =>
-      [...rows]
-        .sort(getComparator(order, orderBy))
-        .slice((page-1) * rowsPerPage, (page-1) * rowsPerPage + rowsPerPage),
-    [order, orderBy, page, rowsPerPage],
-  );
+    const rowsPerPage = 6;
 
-  return (
-    <Box sx={{ width: '100%' }} >
-      <Paper sx={{ width: '100%', mb: 2, borderRadius : 5, boxShadow: (theme) => theme.shadows[4]}} >
-        <EnhancedTableToolbar />
-        <Divider variant="middle" />
-        <TableContainer>
-          <Table
-            sx={{ minWidth: 750 }}
-            aria-labelledby="tableTitle"
-            size={'medium'}
-          >
-            <EnhancedTableHead
-              order={order}
-              orderBy={orderBy}
-              onRequestSort={handleRequestSort}
-              rowCount={rows.length}
-            />
-            <TableBody>
-              {visibleRows.map((row, index) => {
-                const labelId = `enhanced-table-checkbox-${index}`;
+
+    // ========================================================
+    // CATEGORY LIST
+    // ========================================================
+
+    const categories = [
+        "ALL",
+        ...Array.from(
+            new Set(
+                bestSellerData.map(
+                    item => item.category
+                )
+            )
+        ),
+    ];
+
+
+    // ========================================================
+    // FILTER + SORT
+    // ========================================================
+
+    const filteredProducts = useMemo(() => {
+
+        const result =
+            bestSellerData.filter(
+                product => {
+
+                    const searchMatch =
+                        product.name
+                            .toLowerCase()
+                            .includes(
+                                search.toLowerCase()
+                            ) ||
+                        product.sku
+                            .toLowerCase()
+                            .includes(
+                                search.toLowerCase()
+                            );
+
+
+                    const categoryMatch =
+                        category === "ALL" ||
+                        product.category ===
+                            category;
+
+
+                    return (
+                        searchMatch &&
+                        categoryMatch
+                    );
+                }
+            );
+
+
+        result.sort(
+            (a, b) => {
+
+                if (
+                    sortBy ===
+                    "ORDERS"
+                ) {
+                    return (
+                        b.orders -
+                        a.orders
+                    );
+                }
+
+                if (
+                    sortBy ===
+                    "QUANTITY"
+                ) {
+                    return (
+                        b.quantitySold -
+                        a.quantitySold
+                    );
+                }
 
                 return (
-                  <TableRow
-                    hover
-                    onClick={(event) => handleClick(event, row.id)}
-                    role="checkbox"
-                    tabIndex={-1}
-                    key={row.id}
-                    sx={{ cursor: 'pointer' }}
-                  >
-                    <TableCell
-                      component="th"
-                      id={labelId}
-                      scope="row"
-                      padding="normal"
-                    >
-                      {row.name}
-                    </TableCell>
-                    <TableCell align="right">{row.calories}</TableCell>
-                    <TableCell align="right">{row.fat}</TableCell>
-                    <TableCell align="right">{row.carbs}</TableCell>
-                    <TableCell align="right">{row.protein}</TableCell>
-                  </TableRow>
+                    b.revenue -
+                    a.revenue
                 );
-              })}
-              {emptyRows > 0 && (
-                <TableRow
-                  style={{
-                    height: (53) * emptyRows,
-                  }}
+            }
+        );
+
+
+        return result;
+
+    }, [
+        search,
+        category,
+        sortBy,
+    ]);
+
+
+    // ========================================================
+    // PAGINATION
+    // ========================================================
+
+    const totalPages = Math.ceil(
+        filteredProducts.length /
+            rowsPerPage
+    );
+
+
+    const paginatedProducts =
+        filteredProducts.slice(
+            (page - 1) *
+                rowsPerPage,
+
+            page *
+                rowsPerPage
+        );
+
+
+    // ========================================================
+    // RESET PAGE WHEN FILTER CHANGES
+    // ========================================================
+
+    const handleSearch = (
+        value: string
+    ) => {
+
+        setSearch(value);
+
+        setPage(1);
+
+    };
+
+
+    const handleCategoryChange = (
+        event: SelectChangeEvent
+    ) => {
+
+        setCategory(
+            event.target.value
+        );
+
+        setPage(1);
+
+    };
+
+
+    const handleSortChange = (
+        event: SelectChangeEvent
+    ) => {
+
+        setSortBy(
+            event.target.value as SortType
+        );
+
+        setPage(1);
+
+    };
+
+
+    // ========================================================
+    // SUMMARY DATA
+    // ========================================================
+
+    const totalOrders =
+        filteredProducts.reduce(
+            (sum, product) =>
+                sum + product.orders,
+            0
+        );
+
+    const totalRevenue =
+        filteredProducts.reduce(
+            (sum, product) =>
+                sum + product.revenue,
+            0
+        );
+
+    const totalQuantity =
+        filteredProducts.reduce(
+            (sum, product) =>
+                sum +
+                product.quantitySold,
+            0
+        );
+
+
+    return (
+
+        <Box>
+
+            <Stack
+                direction={"row"}
+                justifyContent="space-between"
+                alignItems={{
+                    xs: "flex-start",
+                    md: "center",
+                }}
+                gap={2}
+                mb={3}
+            >
+
+                <Box>
+
+                    <Stack
+                        direction="row"
+                        spacing={1}
+                        alignItems="center"
+                    >
+
+                        <EmojiEventsRounded fontSize="large" />
+
+                        <Typography
+                            variant="h4"
+                            fontWeight={700}
+                        >
+                            Best Sellers
+                        </Typography>
+
+                    </Stack>
+
+                    <Typography
+                        color="text.secondary"
+                        sx={{
+                            mt: 0.5,
+                        }}
+                    >
+                        Analyze your top-selling
+                        products and sales performance.
+                    </Typography>
+
+                </Box>
+
+
+                {/* PERIOD */}
+
+                <FormControl
+                    size="small"
+                    sx={{
+                        minWidth: 150,
+                    }}
                 >
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <Stack spacing={2} alignItems="center" paddingBlock={5}>
-            <Pagination color="secondary" 
-            count={totalPages} 
-            page={page}
-            onChange={handleChangePage}
-            renderItem={(item) => (
-                <PaginationItem
-                  {...item}
-                  components={{
-                    previous: () => <Typography display="flex" alignItems="center" pr={2}><ArrowLeftRounded fontSize="large"/> <>Prev</></Typography>,
-                    next: () => <Typography display="flex" alignItems="center" pl={2}><>Next</> <ArrowRightRounded fontSize="large"/></Typography>,
-                  }}
-                />
-              )} 
-            />
-        </Stack>
-      </Paper>
-    </Box>
-  );
+
+                    <InputLabel>
+                        Period
+                    </InputLabel>
+
+                    <Select
+                        value={period}
+                        label="Period"
+                        onChange={e =>
+                            setPeriod(
+                                e.target.value as SalesPeriod
+                            )
+                        }
+                    >
+
+                        <MenuItem value="TODAY">
+                            Today
+                        </MenuItem>
+
+                        <MenuItem value="WEEK">
+                            This Week
+                        </MenuItem>
+
+                        <MenuItem value="MONTH">
+                            This Month
+                        </MenuItem>
+
+                        <MenuItem value="YEAR">
+                            This Year
+                        </MenuItem>
+
+                        <MenuItem value="ALL">
+                            All Time
+                        </MenuItem>
+
+                    </Select>
+
+                </FormControl>
+
+            </Stack>
+
+
+            {/* =================================================
+                SUMMARY CARDS
+            ================================================= */}
+
+            <Grid
+                container
+                spacing={2}
+                mb={3}
+            >
+
+                <Grid
+                    size={{
+                        xs: 6,
+                        sm: 4,
+                    }}
+                >
+
+                    <SummaryCard
+                        icon={
+                            <ReceiptLongRounded />
+                        }
+                        label="Total Orders"
+                        value={
+                            totalOrders.toLocaleString()
+                        }
+                    />
+
+                </Grid>
+
+
+                <Grid
+                    size={{
+                        xs: 6,
+                        sm: 4,
+                    }}
+                >
+
+                    <SummaryCard
+                        icon={
+                            <Inventory2Rounded />
+                        }
+                        label="Units Sold"
+                        value={
+                            totalQuantity.toLocaleString()
+                        }
+                    />
+
+                </Grid>
+
+
+                <Grid
+                    size={{
+                        xs: 12,
+                        sm: 4,
+                    }}
+                >
+
+                    <SummaryCard
+                        icon={
+                            <TrendingUpRounded />
+                        }
+                        label="Revenue"
+                        value={
+                            formatYen(
+                                totalRevenue
+                            )
+                        }
+                    />
+
+                </Grid>
+
+            </Grid>
+
+
+            {/* =================================================
+                SEARCH + FILTER
+            ================================================= */}
+
+            <Card
+                elevation={0}
+                sx={{
+                    border: "1px solid",
+                    borderColor:
+                        "divider",
+                    borderRadius: 3,
+                    mb: 2,
+                }}
+            >
+
+                <Stack
+                    direction={{
+                        xs: "column",
+                        md: "row",
+                    }}
+                    spacing={2}
+                    p={2}
+                >
+
+                    {/* SEARCH */}
+
+                    <TextField
+                        fullWidth
+                        size="small"
+                        placeholder="Search product name or SKU..."
+                        value={search}
+                        onChange={e =>
+                            handleSearch(
+                                e.target.value
+                            )
+                        }
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment
+                                    position="start"
+                                >
+                                    <SearchRounded />
+                                </InputAdornment>
+                            ),
+                        }}
+                    />
+
+
+                    {/* CATEGORY */}
+
+                    <FormControl
+                        size="small"
+                        sx={{
+                            minWidth: 160,
+                        }}
+                    >
+
+                        <InputLabel>
+                            Category
+                        </InputLabel>
+
+                        <Select
+                            value={category}
+                            label="Category"
+                            onChange={
+                                handleCategoryChange
+                            }
+                        >
+
+                            {categories.map(
+                                item => (
+
+                                    <MenuItem
+                                        key={item}
+                                        value={item}
+                                    >
+                                        {item ===
+                                        "ALL"
+                                            ? "All Categories"
+                                            : item}
+                                    </MenuItem>
+
+                                )
+                            )}
+
+                        </Select>
+
+                    </FormControl>
+
+
+                    {/* SORT */}
+
+                    <FormControl
+                        size="small"
+                        sx={{
+                            minWidth: 180,
+                        }}
+                    >
+
+                        <InputLabel>
+                            Sort By
+                        </InputLabel>
+
+                        <Select
+                            value={sortBy}
+                            label="Sort By"
+                            onChange={
+                                handleSortChange
+                            }
+                        >
+
+                            <MenuItem value="REVENUE">
+                                Revenue
+                            </MenuItem>
+
+                            <MenuItem value="ORDERS">
+                                Orders
+                            </MenuItem>
+
+                            <MenuItem value="QUANTITY">
+                                Units Sold
+                            </MenuItem>
+
+                        </Select>
+
+                    </FormControl>
+
+                </Stack>
+
+            </Card>
+
+
+            {/* =================================================
+                TABLE
+            ================================================= */}
+
+            <Paper
+                variant="outlined"
+                sx={{
+                    borderRadius: 3,
+                    overflow: "hidden",
+                }}
+            >
+
+                <TableContainer>
+
+                    <Table
+                        sx={{
+                            minWidth: 900,
+                        }}
+                    >
+
+                        <TableHead>
+
+                            <TableRow>
+
+                                <TableCell>
+                                    Rank
+                                </TableCell>
+
+                                <TableCell>
+                                    Product
+                                </TableCell>
+
+                                <TableCell>
+                                    SKU
+                                </TableCell>
+
+                                <TableCell
+                                    align="right"
+                                >
+                                    Orders
+                                </TableCell>
+
+                                <TableCell
+                                    align="right"
+                                >
+                                    Units Sold
+                                </TableCell>
+
+                                <TableCell
+                                    align="right"
+                                >
+                                    Revenue
+                                </TableCell>
+
+                                <TableCell
+                                    align="right"
+                                >
+                                    Avg. Price
+                                </TableCell>
+
+                                <TableCell
+                                    align="right"
+                                >
+                                    Stock
+                                </TableCell>
+
+                            </TableRow>
+
+                        </TableHead>
+
+
+                        <TableBody>
+
+                            {paginatedProducts.map(
+                                (
+                                    product,
+                                    index
+                                ) => {
+
+                                    const rank =
+                                        (page - 1) *
+                                            rowsPerPage +
+                                        index +
+                                        1;
+
+
+                                    return (
+
+                                        <TableRow
+                                            key={
+                                                product.id
+                                            }
+                                            hover
+                                        >
+
+                                            {/* RANK */}
+
+                                            <TableCell>
+
+                                                {rank <=
+                                                3 ? (
+
+                                                    <Chip
+                                                        icon={
+                                                            <EmojiEventsRounded />
+                                                        }
+                                                        label={
+                                                            `#${rank}`
+                                                        }
+                                                        size="small"
+                                                        color={
+                                                            rank ===
+                                                            1
+                                                                ? "warning"
+                                                                : "default"
+                                                        }
+                                                        sx={{
+                                                            fontWeight: 700,
+                                                        }}
+                                                    />
+
+                                                ) : (
+
+                                                    <Typography
+                                                        variant="body2"
+                                                        fontWeight={600}
+                                                    >
+                                                        #{rank}
+                                                    </Typography>
+
+                                                )}
+
+                                            </TableCell>
+
+
+                                            {/* PRODUCT */}
+
+                                            <TableCell>
+
+                                                <Stack
+                                                    direction="row"
+                                                    spacing={1.5}
+                                                    alignItems="center"
+                                                >
+
+                                                    <Avatar
+                                                        src={
+                                                            product.image
+                                                        }
+                                                        variant="rounded"
+                                                        sx={{
+                                                            width: 48,
+                                                            height: 48,
+                                                        }}
+                                                    />
+
+                                                    <Box>
+
+                                                        <Typography
+                                                            fontWeight={700}
+                                                        >
+                                                            {
+                                                                product.name
+                                                            }
+                                                        </Typography>
+
+                                                        <Typography
+                                                            variant="caption"
+                                                            color="text.secondary"
+                                                        >
+                                                            {
+                                                                product.category
+                                                            }
+                                                        </Typography>
+
+                                                    </Box>
+
+                                                </Stack>
+
+                                            </TableCell>
+
+
+                                            {/* SKU */}
+
+                                            <TableCell>
+
+                                                <Typography
+                                                    variant="body2"
+                                                    color="text.secondary"
+                                                >
+                                                    {
+                                                        product.sku
+                                                    }
+                                                </Typography>
+
+                                            </TableCell>
+
+
+                                            {/* ORDERS */}
+
+                                            <TableCell
+                                                align="right"
+                                            >
+
+                                                <Typography
+                                                    fontWeight={700}
+                                                >
+                                                    {product.orders.toLocaleString()}
+                                                </Typography>
+
+                                            </TableCell>
+
+
+                                            {/* UNITS */}
+
+                                            <TableCell
+                                                align="right"
+                                            >
+
+                                                <Typography
+                                                    fontWeight={600}
+                                                >
+                                                    {product.quantitySold.toLocaleString()}
+                                                </Typography>
+
+                                            </TableCell>
+
+
+                                            {/* REVENUE */}
+
+                                            <TableCell
+                                                align="right"
+                                            >
+
+                                                <Typography
+                                                    fontWeight={800}
+                                                >
+                                                    {
+                                                        formatYen(
+                                                            product.revenue
+                                                        )
+                                                    }
+                                                </Typography>
+
+                                            </TableCell>
+
+
+                                            {/* AVG PRICE */}
+
+                                            <TableCell
+                                                align="right"
+                                            >
+
+                                                {
+                                                    formatYen(
+                                                        product.averagePrice
+                                                    )
+                                                }
+
+                                            </TableCell>
+
+
+                                            {/* STOCK */}
+
+                                            <TableCell
+                                                align="right"
+                                            >
+
+                                                <Chip
+                                                    label={`${product.stockRemaining} units`}
+                                                    size="small"
+                                                    color={
+                                                        product.stockRemaining <=
+                                                        30
+                                                            ? "error"
+                                                            : product.stockRemaining <=
+                                                              60
+                                                            ? "warning"
+                                                            : "success"
+                                                    }
+                                                    variant="outlined"
+                                                />
+
+                                            </TableCell>
+
+                                        </TableRow>
+
+                                    );
+                                }
+                            )}
+
+
+                            {/* EMPTY */}
+
+                            {paginatedProducts.length ===
+                                0 && (
+
+                                <TableRow>
+
+                                    <TableCell
+                                        colSpan={8}
+                                        align="center"
+                                        sx={{
+                                            py: 8,
+                                        }}
+                                    >
+
+                                        <SearchRounded
+                                            sx={{
+                                                fontSize: 45,
+                                                color:
+                                                    "text.disabled",
+                                            }}
+                                        />
+
+                                        <Typography
+                                            color="text.secondary"
+                                        >
+                                            No products
+                                            found.
+                                        </Typography>
+
+                                    </TableCell>
+
+                                </TableRow>
+
+                            )}
+
+                        </TableBody>
+
+                    </Table>
+
+                </TableContainer>
+
+
+                {/* =================================================
+                    PAGINATION
+                ================================================= */}
+
+                {totalPages > 0 && (
+
+                    <Stack
+                        direction={{
+                            xs: "column",
+                            sm: "row",
+                        }}
+                        justifyContent="space-between"
+                        alignItems="center"
+                        spacing={2}
+                        p={2}
+                        borderTop="1px solid"
+                        borderColor="divider"
+                    >
+
+                        <Typography
+                            variant="body2"
+                            color="text.secondary"
+                        >
+                            Showing{" "}
+                            {
+                                Math.min(
+                                    (page - 1) *
+                                        rowsPerPage +
+                                        1,
+                                    filteredProducts.length
+                                )
+                            }
+                            –
+                            {
+                                Math.min(
+                                    page *
+                                        rowsPerPage,
+                                    filteredProducts.length
+                                )
+                            }{" "}
+                            of{" "}
+                            {
+                                filteredProducts.length
+                            }{" "}
+                            products
+                        </Typography>
+
+
+                        <Pagination
+                            page={page}
+                            count={totalPages}
+                            onChange={(
+                                _,
+                                value
+                            ) =>
+                                setPage(
+                                    value
+                                )
+                            }
+                            color="primary"
+                            shape="rounded"
+                            showFirstButton
+                            showLastButton
+                        />
+
+                    </Stack>
+
+                )}
+
+            </Paper>
+
+        </Box>
+    );
+}
+
+
+// ============================================================
+// SUMMARY CARD
+// ============================================================
+
+function SummaryCard({
+    icon,
+    label,
+    value,
+}: {
+    icon: React.ReactNode;
+    label: string;
+    value: string;
+}) {
+
+    return (
+
+        <Card
+            elevation={0}
+            sx={{
+                border: "1px solid",
+                borderColor: "divider",
+                borderRadius: 3,
+            }}
+        >
+
+            <Stack
+                direction="row"
+                spacing={2}
+                alignItems="center"
+                p={2}
+            >
+
+                <Box
+                    sx={{
+                        width: 45,
+                        height: 45,
+                        borderRadius: 2,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        bgcolor: "action.hover",
+                    }}
+                >
+                    {icon}
+                </Box>
+
+
+                <Box>
+
+                    <Typography
+                        variant="body2"
+                        color="text.secondary"
+                    >
+                        {label}
+                    </Typography>
+
+                    <Typography
+                        variant="h6"
+                        fontWeight={800}
+                    >
+                        {value}
+                    </Typography>
+
+                </Box>
+
+            </Stack>
+
+        </Card>
+    );
 }

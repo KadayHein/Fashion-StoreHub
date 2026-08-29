@@ -1,11 +1,14 @@
 /*checkout progress bar*/
-.checkoutContainer{
-    display: flex;
+.checkoutContainer {
+	display: flex;
 	justify-content: center;
 	align-items: center;
-	overflow: hidden;
 	font-family: Helvetica, sans-serif;
-    padding-top: 1rem;
+	overflow: visible;
+	position: sticky;
+	top: 0;
+	z-index: 1000;
+	background: white;
 }
 
 .mainWrapper {
@@ -24,7 +27,7 @@
 	align-items: center;
 	padding: 0;
 	width: 100%;
-	margin-top: 3rem;
+	margin-top: 6rem;
 	margin-bottom: 5rem;
 	position: relative;
 	cursor: default;
@@ -47,11 +50,11 @@
 	max-width: 100%;
 	margin: 10px #000000 solid;
 	position: absolute;
-    transition: 0.8s ease-in-out;
+	transition: 0.8s ease-in-out;
 	left: 0;
 }
 
-.statusBar > .node {
+.statusBar>.node {
 	background-color: #c4c4c4;
 	height: 1.2em;
 	width: 1.2em;
@@ -61,27 +64,28 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-    transition: 0.8s ease-in-out;
+	transition: 0.8s ease-in-out;
 }
 
-.node > .text {
+.node>.text {
 	font-weight: 200;
 	color: #c4c4c4;
 	text-align: center;
 	position: absolute;
 	top: 2.5em;
 	cursor: pointer;
+	white-space: nowrap;
 }
 
 .node.done {
 	background-color: #1cbd2c;
 }
 
-.node > .text.done {
+.node>.text.done {
 	color: #1cbd2c;
 }
 
-.node > .main {
+.node>.main {
 	position: absolute;
 	border: 0.2em #c4c4c4 solid;
 	width: 0;
@@ -89,7 +93,7 @@
 	border-radius: 100%;
 }
 
-.node > .main.done {
+.node>.main.done {
 	border: 0.2em #1cbd2c solid;
 	width: 2em;
 	height: 2em;

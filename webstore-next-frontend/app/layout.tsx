@@ -1,5 +1,7 @@
 // import type { Metadata } from "next";
+import GlobalNotiProvider from "@/base-components/system-animators/GlobalNotiProvider";
 import "./globals.css";
+import { URL_WEBLOGO } from "@/service/routeHandler";
 
 // export const metadata: Metadata = {
 //   title: "CC-Shopping | Home",
@@ -36,13 +38,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="icon" href="images/WEBLOGO.png"/>
+        <link rel="icon" href={URL_WEBLOGO}/>
         <title>GD-Store Hub.</title>
       </head>
       <body>
-          {children}
+        <GlobalNotiProvider>
+            {children}
+        </GlobalNotiProvider>
       </body>
     </html>
   );

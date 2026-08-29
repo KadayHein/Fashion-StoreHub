@@ -3,7 +3,7 @@ import { Button, Box, Typography, IconButton, Card, CardContent } from '@mui/mat
 import { ClearRounded, CloudUploadRounded, VisibilityRounded } from '@mui/icons-material';
 import { useDropzone } from 'react-dropzone';
 import { uploadImage } from '../../service/filehandler';
-import NotiAlert from '../../system-animators/NotiAlert';
+import NotiAlert from '../system-animators/NotiAlert';
 
 
 type UploaderProps = {
@@ -15,7 +15,6 @@ type UploaderProps = {
 export default function ImageUploader({formValidated, folderPath, setImageUrl}: UploaderProps) {
   const [image, setImage] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  const [notibox, setNotibox] = React.useState({status:"error", show:false, timeout:1000, message: "Alert Message!"});
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -44,28 +43,20 @@ export default function ImageUploader({formValidated, folderPath, setImageUrl}: 
     setPreviewUrl(null);
     }
   }
-
-  const openNoti = (status: string) => {
-    setNotibox({
-      status: status,
-      show: true, 
-      timeout: 3000, 
-      message: status == "success" ? "Image Uploaded Successfully!" : "Failed To Upload Image!"
-    })
-  };
     
    async function uploadFile() {
     if (formValidated && image) {
-      const url = await uploadImage({
-        file: image,
-        bucket: "fileupload",
-        folder: folderPath,
-        openNoti
-      });
+      // const url = await uploadImage({
+      //   file: image,
+      //   bucket: "fileupload",
+      //   folder: folderPath,
+      //   openNoti
+      // });
 
-      if (url) {
-        setImageUrl(url); // <- this will call handleImageUploaded in parent
-      }
+      // if (url) {
+      //   setImageUrl(url); 
+      //   // <- this will call handleImageUploaded in parent
+      // }
     }
   }
 
@@ -170,7 +161,6 @@ export default function ImageUploader({formValidated, folderPath, setImageUrl}: 
       }
       
       </Box>
-      <NotiAlert notibox={notibox} setNotibox={setNotibox}/>
     </Box>
   );
 }

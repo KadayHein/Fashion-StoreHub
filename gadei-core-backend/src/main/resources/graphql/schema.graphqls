@@ -2,6 +2,7 @@
 type Category  {
     id: ID
     name: String
+    bannerImageUrl: String
     genres: [Genre]
 }
 
@@ -60,6 +61,20 @@ input ProductUploadDTO {
     genre_id: Int
 }
 
+input FilterInput {
+    itemid: ID!
+    caption: String
+    fieldname: String
+    datatype: String
+    condition: String
+    value: String
+    value2: String
+}
+
+input FilterDatasetInput {
+    filterList: [FilterInput!]!
+}
+
 type Game {
     id: ID
     name: String
@@ -109,12 +124,12 @@ type Account {
     fullName: String!
     phoneNumber: String!
     role: Role!
-    createdAt: DateTime
+    createdAt: String!
 }
 
-type SecurityInfo {
+type JwtRespDTO {
     token: String!
-    account: Account!
+    token_type: String!
 }
 
 input TopupInput {
@@ -130,6 +145,13 @@ input SignInForm {
     password: String!
 }
 
+input SignUpForm {
+    email: String!
+    password: String!
+    fullName: String!
+    phoneNumber: String!
+}
+
 type Query {
     allCategories: [Category]
     categoryById(id: ID): Category
@@ -140,6 +162,8 @@ type Query {
 
     allProducts: [Product]
     productsByGenreId(id: ID): [Product]
+    productsByText(searchText: String, categoryId: ID): [Product]
+    filterProducts(filterDataset: FilterDatasetInput!, categoryId: ID!): [Product]
     productById(id: ID): Product
 
     cartSize: Int
@@ -164,6 +188,7 @@ type Mutation{
     removeCertainItem(cartItem: CartItemInput): Int
     uploadProduct(product: ProductUploadDTO): Int
     checkout(topup: TopupInput): Slip
-    signIn(signInForm: SignInForm): SecurityInfo
+    signIn(signInForm: SignInForm): JwtRespDTO
+    signUp(signUpForm: SignUpForm): JwtRespDTO
 }
 

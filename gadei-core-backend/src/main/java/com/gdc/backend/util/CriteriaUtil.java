@@ -45,7 +45,7 @@ public class CriteriaUtil {
 
 		return (root,cq,cb) -> switch(condition) {
 			case "eq" -> cb.equal(root.get(fieldname), value);
-			case "c" -> cb.like(root.get(fieldname), "%"+value+"%");
+			case "ct" -> cb.like(root.get(fieldname), "%"+value+"%");
 			case "bw" -> cb.like(root.get(fieldname), value+"%");
 			case "ew" -> cb.like(root.get(fieldname), "%"+value);
 			default -> cb.equal(root.get(fieldname), value);
@@ -53,6 +53,19 @@ public class CriteriaUtil {
 	}
 	
 	public static<T> Specification<T> where(SingularAttribute<T, Integer> fieldname, String condition, Integer value1, Integer value2){
+
+		return (root,cq,cb) -> switch(condition) {
+			case "eq" -> cb.equal(root.get(fieldname), value1);
+			case "gt" -> cb.greaterThan(root.get(fieldname), value1);
+			case "lt" -> cb.lessThan(root.get(fieldname), value1);
+			case "geq" -> cb.greaterThanOrEqualTo(root.get(fieldname), value1);
+			case "leq" -> cb.lessThanOrEqualTo(root.get(fieldname), value1);
+			case "bt" -> cb.between(root.get(fieldname), value1, value2);
+			default -> cb.equal(root.get(fieldname), value1);
+			};
+	}
+	
+	public static<T> Specification<T> where(SingularAttribute<T, Double> fieldname, String condition, Double value1, Double value2){
 
 		return (root,cq,cb) -> switch(condition) {
 			case "eq" -> cb.equal(root.get(fieldname), value1);
@@ -96,9 +109,8 @@ public class CriteriaUtil {
 	}
 	
 	public static<T> Specification<T> whereLike(SingularAttribute<T, String> fieldname, String like){
-		return (root,cq,cb) -> cb.like(root.get(fieldname), like);
+		return (root,cq,cb) -> cb.like(cb.lower(root.get(fieldname)), "%"+like.toLowerCase()+"%");
 	}
-	
 	
 	public static<T> Specification<T> between(SingularAttribute<T, Integer> fieldname, Integer upperbound, Integer lowerbound){
 		return (root,cq,cb) -> cb.between(root.get(fieldname), upperbound, lowerbound);
@@ -108,16 +120,38 @@ public class CriteriaUtil {
 		return (root,cq,cb) -> cb.between(root.get(fieldname), upperbound, lowerbound);
 	}
 	
-	public static<S,T> Specification<S> join(T target, String joinTo, String matchTo, String condition, String value){
+	public static<S,T,V> Specification<S> join2tbl(
+			T target, String joinTo, 
+			SingularAttribute<T, V> field2match, String condition, V value){
 
 		return (root,cq,cb) -> {
 			Join<S, T> join = root.join(joinTo);
 			return switch(condition) {
-			case "eq" -> cb.equal(join.get(matchTo), value);
-			case "c" -> cb.like(join.get(matchTo), "%"+value+"%");
-			case "bw" -> cb.like(join.get(matchTo), value+"%");
-			case "ew" -> cb.like(join.get(matchTo), "%"+value);
-			default -> cb.equal(join.get(matchTo), value);
+			case "eq" -> cb.equal(join.get(field2match), value);
+			case "c" -> cb.like(join.get(field2match).as(String.class), "%"+value+"%");
+			case "bw" -> cb.like(join.get(field2match).as(String.class), value+"%");
+			case "ew" -> cb.like(join.get(field2match).as(String.class), "%"+value);
+			default -> cb.equal(join.get(field2match), value);
+			};
+		};
+	}
+	
+	public static<S,J,T,V> Specification<S> join3tbl(
+			SingularAttribute<S, J> firstJoin, 
+			SingularAttribute<J, T> secondJoin, 
+			SingularAttribute<T, V> field2match, String condition, V value){ // V = generic for field2match data type
+
+		
+		return (root,cq,cb) -> {
+			Join<S, J> join1 = root.join(firstJoin);
+			Join<J, T> join2 = join1.join(secondJoin);
+			
+			return switch(condition) {
+			case "eq" -> cb.equal(join2.get(field2match), value);
+			case "c" -> cb.like(join2.get(field2match).as(String.class), "%"+value+"%");
+			case "bw" -> cb.like(join2.get(field2match).as(String.class), value+"%");
+			case "ew" -> cb.like(join2.get(field2match).as(String.class), "%"+value);
+			default -> cb.equal(join2.get(field2match).as(String.class), value);
 			};
 		};
 	}

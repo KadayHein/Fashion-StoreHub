@@ -1,38 +1,35 @@
-import { CheckoutContext } from '@/app/fashion/clientstore/checkout/CheckoutContext';
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import style from './../../service-module/global-util/progress-bar.module.css';
-import { title } from 'node:process';
+import { useCheckoutContext } from '@/app/[locale]/fashion/clientstore/checkout/layout';
+import { useAppTranslation } from '@/service/customHooks/useAppTranslation';
 
 
 export default function Progressbar() {
-    const {step, maxstep} = useContext(CheckoutContext);
+    const {step, maxstep} = useCheckoutContext()
+    const { checkout } = useAppTranslation()
     const [barwidth, setBarwidth] = useState<number>(0);
 
     const flows = 
     [
         {
-            title: "Order Confirmation",
+            title: checkout("steps.orderConfirmation"),
             step : 0
         },
         {
-            title: "Authentication",
+            title: checkout("steps.shipping"),
             step: 1
         },
         {
-            title: "Shipping",
+            title: checkout("steps.authentication"),
             step: 2
         },
         {
-            title: "Review",
+            title: checkout("steps.payment"),
             step: 3
         },
         {
-            title: "Payment",
+            title: checkout("steps.complete"),
             step: 4
-        },
-        {
-            title: "Complete",
-            step: 5
         }
     ];
 

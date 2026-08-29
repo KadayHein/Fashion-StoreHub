@@ -1,56 +1,110 @@
+"use client"
 import CardAuth from './CardAuth';
 import DeliInfo from './DeliInfo';
 import { useEffect } from 'react';
-import { useCheckoutContext } from '@/app/fashion/clientstore/checkout/CheckoutContext';
-import { Avatar, Card, CardActions, CardContent, CardHeader, IconButton } from '@mui/material';
-import StepoverButton from './StepoverButton';
+import { Avatar, Card, CardContent, CardHeader, IconButton } from '@mui/material';
 import { MoreVert } from '@mui/icons-material';
-import ReviewDetails from './ReviewDetails';
 import OrderConfirmation from './OrderConfirmation';
+import { useCheckoutContext } from '@/app/[locale]/fashion/clientstore/checkout/layout';
+import OAuthPayment from './OAuthPayment';
+import PaymentComplete from './PaymentComplete';
+import { useAppTranslation } from '@/service/customHooks/useAppTranslation';
 
-export default function Checkout({ stepno }: any) {
+export default function Checkout({ stepno }: { stepno: number }) {
 
-    const { maxstep, step, setStep, header, setHeader, nextstep, backstep } = useCheckoutContext();
+    const { setStep } = useCheckoutContext();
+    const { checkout } = useAppTranslation();
+
     const todaydate = new Date().toLocaleDateString("en-US", {
         year: "numeric",
         month: "long",
-        day: "numeric"
+        day: "numeric",
     });
 
     useEffect(() => {
         setStep(stepno);
-    }, [stepno])
+    }, [stepno, setStep]);
 
-    const onStepChange = (stepno: number) => {
+
+    const getHeader = () => {
         switch (stepno) {
-            case 0: return <OrderConfirmation />; break;
-            case 1: return <CardAuth />; break;
-            case 2: return <DeliInfo />; break;
-            case 3: return <ReviewDetails />; break;
+            case 0:
+                return checkout("subheaders.orderConfirmation");
+
+            case 1:
+                return checkout("subheaders.shipping");
+
+            case 2:
+                return checkout("subheaders.authentication");
+
+            case 3:
+                return checkout("subheaders.payment");
+
+            case 4:
+                return checkout("subheaders.complete");
 
             default:
-                break;
+                return "";
         }
-    }
+    };
+
+
+    const getContent = () => {
+        switch (stepno) {
+            case 0:
+                return <OrderConfirmation />;
+
+            case 1:
+                return <DeliInfo />;
+
+            case 2:
+                return <CardAuth />;
+
+            case 3:
+                return <OAuthPayment />;
+
+            case 4:
+                return <PaymentComplete />;
+
+            default:
+                return null;
+        }
+    };
+
 
     return (
         <section id="checkout">
-            <Card sx={{ maxWidth: { xs: "80%", sm: 450, md: 500, lg: 600 }, mx: "auto" }}>
+            <Card
+                sx={{
+                    maxWidth: {
+                        xs: "80%",
+                        sm: 450,
+                        md: 500,
+                        lg: 600,
+                    },
+                    mx: "auto",
+                    mb: 2,
+                }}
+            >
                 <CardHeader
-                    avatar={<Avatar sx={{ bgcolor: "#00c853" }}>{stepno + 1}</Avatar>}
-                    action={<IconButton aria-label="settings"><MoreVert /></IconButton>}
-                    title={header}
+                    avatar={
+                        <Avatar sx={{ bgcolor: "#00c853" }}>
+                            {stepno + 1}
+                        </Avatar>
+                    }
+                    action={
+                        <IconButton aria-label="settings">
+                            <MoreVert />
+                        </IconButton>
+                    }
+                    title={getHeader()}
                     subheader={todaydate}
                 />
+
                 <CardContent>
-                    {
-                        onStepChange(stepno)
-                    }
+                    {getContent()}
                 </CardContent>
-                <CardActions disableSpacing sx={{ display: 'flex', justifyContent: 'space-around', my: 3 }}>
-                    <StepoverButton />
-                </CardActions>
             </Card>
         </section>
-    )
+    );
 }

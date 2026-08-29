@@ -10,6 +10,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Box, Button, Card, CardActionArea, CardActions, CardContent, CardMedia, IconButton, Paper, Stack, Tooltip, Typography } from '@mui/material'
 import { AppsOutageRounded, CurrencyYen, StarRounded } from '@mui/icons-material'
+import { useAppTranslation } from '@/service/customHooks/useAppTranslation';
 
 interface Trendings {
     syskey : number,
@@ -21,6 +22,7 @@ export default function NewArrival() {
     const [sliders,setSliders] = useState<Trendings[]>();
     const [activeSlide,setActiveSlide] = useState(0)
     const [selectedProduct,setSelectedProduct] = useState<Product>();
+    const { feature } = useAppTranslation();
 
     useEffect(() => {
     getAllTrendings()
@@ -61,15 +63,6 @@ export default function NewArrival() {
         })
     }
 
-    function formatAmount(num : number) {
-        if (num != undefined && num != null) {
-        let numstr = String(num);
-        numstr = numstr.replace(/,/g, "");
-        var parts = numstr.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        return parts;
-        } else return "";
-    }
-
   return (
     <Paper 
     sx={{
@@ -86,10 +79,14 @@ export default function NewArrival() {
         display={"flex"} direction="column" justifyContent={"center"} 
         color={"#fff"} spacing={2} width={"60%"}>
             <Typography variant="h4" fontWeight="bold">
-                <span className="text-red-500">New</span> Arrivals.
+                {feature.rich("newArrivals", {
+                    red: (chunks) => (
+                        <span className="text-red-500">{chunks}</span>
+                    )
+                })}
             </Typography>
             <Typography variant="body1" fontWeight="light">
-                Upcoming products on schedule right there on customer's sight.
+                {feature("newArrivalsSub")}
             </Typography>
         </Stack>
         </Box>

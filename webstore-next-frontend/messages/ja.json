@@ -1,0 +1,254 @@
+{
+    "common": {
+        "save": "保存",
+        "cancel": "キャンセル",
+        "edit": "編集",
+        "delete": "削除",
+        "create": "作成",
+        "close": "閉じる",
+        "search": "検索",
+        "filter": "絞り込み",
+        "refresh": "更新",
+        "export": "エクスポート",
+        "loading": "読み込み中",
+        "noData": "データがありません",
+        "explore": "商品を見る",
+        "category": "カテゴリー",
+        "genre": "ジャンル",
+        "genres": "ジャンル",
+        "productName": "商品名",
+        "price": "価格",
+        "size": "サイズ",
+        "color": "カラー"
+    },
+    "nav": {
+        "home": "ホーム",
+        "about": "会社情報",
+        "showroom": "ショールーム",
+        "cart": "カート",
+        "noti": "お知らせ",
+        "admin_panel": "管理画面",
+        "open_settings": "設定を開く",
+        "profile": "プロフィール",
+        "lang": "言語",
+        "darkmode": "ダークモード",
+        "lightmode": "ライトモード",
+        "login": "ログイン",
+        "logout": "ログアウト"
+    },
+    "home": {
+        "landingheader": "あなたらしいスタイルを見つけよう",
+        "landingsubheader": "バーチャルショールームを巡り、さまざまなコーディネートを試しながら、豊富なカテゴリーからお気に入りのスタイルを見つけてください",
+        "landingsubheader2": "見て、試して、あなたらしいスタイルを",
+        "header": "おすすめ商品",
+        "subheader": "Gadei StoreHub。オンラインファッションショッピング - スマートに選ぶ、手軽に楽しむ、洗練されたスタイル、国内注文対応！",
+        "subheader2": "新しいスタイルを、スマートに、ひとつの場所で見つけよう",
+        "ep_cards": {},
+        "feature_cards": {
+            "trend": "今のトレンド",
+            "trendSub": "話題の新商品や人気商品をチェック。<br></br>フラッシュセールでお得にゲット！",
+            "explore": "店内を<red>見る</red>",
+            "exploreSub": "店内を見て回り、お好みの商品を見つけてください。",
+            "exploreNav": "店内へ",
+            "createAcc": "アカウントを<red>作成</red>",
+            "moreChanceSub": "さらにお得な割引、クーポン、キャッシュバック、特典をご利用いただけます。",
+            "createAccNav": "新規登録",
+            "membership": "<red>会員</red>プラン",
+            "membershipNav": "会員登録",
+            "newArrivals": "<red>新着</red>商品",
+            "newArrivalsSub": "近日入荷予定の商品をいち早くチェックできます。"
+        },
+        "showroomheader": "カテゴリーから探す",
+        "showroomsubheader": "お気に入りのカテゴリーから商品を探しましょう。"
+    },
+    "about": {
+        "title": "GD Fashion Storeについて",
+        "intro": "GD Fashion Storeへようこそ。おしゃれで快適、そして品質にこだわったファッションを、誰もが身近に楽しめるショップを目指しています。",
+        "store": {
+            "title": "GD Fashion Storeについて",
+            "description1": "GD Fashion Storeは、さまざまなスタイルやシーン、ライフスタイルに合わせた現代的なファッションアイテムを取り扱うオンラインショップです。",
+            "description2": "お客様が余計な手間を感じることなく、お気に入りの服を見つけられる、シンプルで楽しいショッピング体験を提供することを目指しています。"
+        },
+        "founder": {
+            "title": "創業者・オーナー",
+            "name": "Min Myo Aung",
+            "description": "GD Fashion Storeの創業者兼オーナーとして、ブランドの方向性、商品選定、ショップ全体のビジョンを担当しています。"
+        },
+        "vision": {
+            "title": "私たちのビジョン",
+            "description": "お客様一人ひとりが、自分の個性やライフスタイル、好みに合ったファッションを自信を持って見つけられる、信頼されるファッションブランドを目指しています。"
+        },
+        "values": {
+            "title": "私たちが大切にすること",
+            "quality": {
+                "title": "品質",
+                "description": "お客様にご満足いただける品質の商品を提供することを目指しています。"
+            },
+            "style": {
+                "title": "スタイル",
+                "description": "現代のファッショントレンドに合ったスタイルを常に探しています。"
+            },
+            "customers": {
+                "title": "お客様",
+                "description": "お客様の満足を、私たちのビジネスの中心に考えています。"
+            }
+        },
+        "suppliers": {
+            "title": "仕入先・商品パートナー",
+            "description1": "GD Fashion Storeは、お客様にファッションアイテムを提供するため、厳選した仕入先や商品パートナーと協力しています。",
+            "description2": "商品の品質、デザイン、在庫状況、価格とのバランスなどを慎重に考慮し、取り扱う商品を選定しています。",
+            "fashionSuppliers": "ファッション仕入先",
+            "clothingPartners": "衣料品パートナー",
+            "productVendors": "商品ベンダー"
+        },
+        "promise": {
+            "title": "私たちの約束",
+            "description": "商品を見つけるところから、注文、商品の受け取りまで、ショッピングのすべてのステップを分かりやすく、スムーズに進められるよう努めています。"
+        },
+        "development": {
+            "title": "ウェブサイト開発",
+            "description1": "GD Fashion Storeウェブサイトの開発者である",
+            "description2": "デスクトップからモバイル端末まで、快適で使いやすく、現代的なショッピング体験を提供できるよう設計・開発されています。"
+        },
+        "copyright": {
+            "title": "著作権・知的財産",
+            "rights": "無断転載・無断使用を禁じます。",
+            "description": "GD Fashion Storeのために制作されたオリジナルのウェブサイトコンテンツ、デザイン要素、ソフトウェアは、適用される知的財産権によって保護されています。"
+        },
+        "footer": {
+            "message": "あなたらしいスタイルを　あなたらしく！",
+            "thankYou": "GD Fashion Storeをお選びいただき、誠にありがとうございます。"
+        }
+    },
+    "filtering": {
+        "by": "絞り込み条件",
+        "condition": "条件",
+        "match": "一致条件",
+        "cancel": "絞り込みを解除",
+        "set": "絞り込む",
+        "add": "条件を追加",
+        "remove": "条件を削除",
+        "filterCondition": {
+            "ct": "次を含む",
+            "eq": "等しい",
+            "bw": "次で始まる",
+            "ew": "次で終わる",
+            "gt": "より大きい",
+            "lt": "より小さい",
+            "geq": "以上",
+            "leq": "以下",
+            "bt": "範囲内"
+        }
+    },
+    "noti": {
+        "cartadded": "カートに追加しました！",
+        "cartaddfailed": "カートへの追加に失敗しました。",
+        "cartremoved": "カートから商品を削除しました。",
+        "cartremovefailed": "カートからの商品削除に失敗しました。",
+        "cartclean1": "選択した商品のすべての数量をカートから削除しました。",
+        "cartclean1failed": "選択した商品の削除に失敗しました。",
+        "fail2loadCat&Gn": "カテゴリーとジャンルの読み込みに失敗しました。",
+        "fail2loadProduct": "商品の読み込みに失敗しました。",
+        "fail2loadCart": "カート商品の読み込みに失敗しました。",
+        "fail2searchProduct": "商品の検索に失敗しました。",
+        "fail2filterProduct": "商品の絞り込みに失敗しました。",
+        "logoutsuccess": "ログアウトしました！",
+        "nogenre": "利用可能なジャンルがありません。",
+        "noproduct": "利用可能な商品がありません。",
+        "searchresults": "検索結果",
+        "noproductfound": "該当する商品が見つかりません："
+    },
+    "carts": {
+        "cartcontent": "カートの内容",
+        "nocartitem": "カートに商品がありません。",
+        "viewCart": "カートを見る",
+        "checkout": "購入手続きへ",
+        "add2cart": "カートに追加",
+        "add2fav": "お気に入りに追加",
+        "qty": "数量",
+        "addmore": "追加する",
+        "removeone": "1点減らす",
+        "deletetype": "全部削除",
+        "subtotal": "小計",
+        "pcs": "点",
+        "items": "商品"
+    },
+    "checkout": {
+        "steps": {
+            "orderConfirmation": "注文確認",
+            "shipping": "配送情報",
+            "authentication": "認証",
+            "payment": "お支払い",
+            "complete": "完了"
+        },
+        "subheaders": {
+            "orderConfirmation": "ご注文内容をご確認ください",
+            "shipping": "お届け先情報",
+            "payment": "決済認証を連携してください",
+            "authentication": "お支払い方法を選択してください",
+            "complete": "お支払いが完了しました"
+        },
+        "buttons": {
+            "backToShopping": "買い物に戻る",
+            "back": "戻る",
+            "confirm": "確認する",
+            "allowContinue": "許可して続行",
+            "cancel": "キャンセル",
+            "viewOrder": "注文を確認する",
+            "continueShopping": "買い物を続ける"
+        },
+        "infobox": {
+            "customerName": "お客様名",
+            "customerEmail": "メールアドレス",
+            "contactNumber": "電話番号",
+            "postalCode": "郵便番号",
+            "prefecture": "都道府県",
+            "cityWard": "市区町村",
+            "townBlock": "町名・番地",
+            "buildingRoom": "建物名・部屋番号"
+        },
+        "payment": {
+            "mobileWallet": "スマホ決済",
+            "bankTransfer": "銀行振込",
+            "cardPayment": "カード決済",
+            "cashOnDelivery": "現金着払い",
+            "selectAtLeastOne": "お支払い方法を必ず1つ選択してください。",
+            "connectTitle": "{paymentName}を接続",
+            "connectDescription": "お支払いを続けるには、{paymentName}アカウントをGD-StoreHubに接続してください。",
+            "willBeAllowedTo": "{paymentName}に以下の操作を許可します：",
+            "confirmPayment": "お支払いを確認する",
+            "processPaymentAmount": "選択した金額の決済を処理する",
+            "returnPaymentStatus": "決済状況をGD-Store Hubに返す",
+            "paymentAmount": "お支払い金額",
+            "simulationNotice": "これは決済シミュレーションです。実際の決済は行われません。"
+        },
+        "paymentComplete": {
+            "successTitle": "お支払いが完了しました！",
+            "thankYou": "{customerName}様、ご注文ありがとうございます。",
+            "paymentCompleted": "お支払いが正常に完了しました。",
+            "orderConfirmed": "注文が確定しました",
+            "orderNumber": "注文番号",
+            "orderDate": "注文日",
+            "deliveryInformation": "配送情報",
+            "estimatedArrival": "お届け予定日",
+            "shippingAddress": "配送先住所",
+            "standardDelivery": "通常配送",
+            "paymentInformation": "お支払い情報",
+            "paymentCompletedShort": "お支払い完了",
+            "orderSummary": "注文内容",
+            "items": "商品",
+            "itemCount": "点",
+            "subtotal": "小計",
+            "shipping": "送料",
+            "total": "合計",
+            "viewOrder": "注文を確認する",
+            "continueShopping": "ショッピングを続ける"
+        }
+    },
+    "language": {
+        "label": "言語",
+        "english": "英語",
+        "japanese": "日本語",
+        "burmese": "ミャンマー語"
+    }
+}

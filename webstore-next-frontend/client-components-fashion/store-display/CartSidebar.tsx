@@ -2,16 +2,26 @@
 import { gql } from '@apollo/client'
 import React, { useEffect, useState } from 'react'
 import ItemPopup from '../info-details/ItemPopup';
-import { useClientContext } from '@/app/fashion/clientstore/layout';
-import { Box, Button, Card, CardContent, CardMedia, IconButton, List, ListItem, Tooltip, Typography } from '@mui/material';
-import { ArrowLeftRounded, ArrowRightRounded, ChecklistRounded, CreditCardRounded, DeleteRounded } from '@mui/icons-material';
+import { useClientContext } from '@/app/[locale]/fashion/clientstore/layout';
+import { Box, Button, Card, CardContent, CardMedia, Drawer, IconButton, List, ListItem, Tooltip, Typography } from '@mui/material';
+import { ArrowLeftRounded, ArrowRightRounded, ChecklistRounded, CloseRounded, CreditCardRounded, DeleteRounded } from '@mui/icons-material';
 import { client } from '@/lib/apolloClient';
+import { enqueueSnackbar } from 'notistack';
+import { useRouter } from '@/i18n/navigation';
+import { URL_CHECKOUT } from '@/service/routeHandler';
+import { formatCurrency } from '@/service/generalUtils';
+import ButtonWhiteBlack from '@/base-components/showbutton/ButtonWhiteBlack';
+import ButtonBlackWhite from '@/base-components/showbutton/ButtonBlackWhite';
+import { useAppTranslation } from '@/service/customHooks/useAppTranslation';
 
-export default function CartSidebar({ toggleCartSide }: any) {
+export default function CartSidebar({ toggleCartSide, cartOpen }: {toggleCartSide: (newOpen: boolean) => () => void, cartOpen : boolean}) {
     const [cart, setCart] = useState<CartItem[]>([])
     const [selectedProduct, setSelectedProduct] = useState<Product>({ id: 0, code: 'P0', name: '', discount: 0, imageUrl: '/../', price: 0, category: {} as Category, genre: {} as Genre })
-    const { cartSize, setCartSize, setNotibox } = useClientContext();
+    const { cartSize, setCartSize } = useClientContext();
+    const { common, noti, carts } = useAppTranslation()
     const lastCartItem = cart.length - 1;
+    const router = useRouter();
+    const route2 = (url: string) => router.push(url)
 
     useEffect(() => {
         allCartItems()
@@ -31,22 +41,13 @@ export default function CartSidebar({ toggleCartSide }: any) {
             }
             `, fetchPolicy: 'network-only' // refresh graphql cache -> fetch new data
         }).then(resp => setCart(resp.data.allCartItems))
-            .catch(err => console.log(err))
+            .catch(() => enqueueSnackbar(noti("fail2loadCart"), { variant: "error" }))
     }
 
     function getSubTotal() {
         let subtotal = 0.00;
         cart.forEach(cartItem => subtotal += cartItem.price);
-        return subtotal > 0 ? formatAmount(subtotal) : 0;
-    }
-
-    function formatAmount(num: number) {
-        if (num != undefined && num != null) {
-            let numstr = String(num);
-            numstr = numstr.replace(/,/g, "");
-            var parts = numstr.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-            return parts;
-        } else return "";
+        return subtotal > 0 ? formatCurrency(subtotal) : 0;
     }
 
     function cartItemToProduct(cartItem: CartItem) {
@@ -79,11 +80,16 @@ export default function CartSidebar({ toggleCartSide }: any) {
                 `, fetchPolicy: 'network-only'
             }).then(resp => {
                 setCartSize(resp.data.addToCart);
-                openNoti("success", "Added To Cart!");
+                enqueueSnackbar(noti("cartadded"), { variant: "success" });
             })
         } catch (error) {
-            openNoti("error", "Failed To Add!");
+            enqueueSnackbar(noti("cartaddfailed"), { variant: "error" });
         }
+    }
+
+    const checkout = () => {
+        toggleCartSide(false)
+        route2(URL_CHECKOUT)
     }
 
     async function removeLess(cartItem: CartItem) {
@@ -101,10 +107,10 @@ export default function CartSidebar({ toggleCartSide }: any) {
                 `, fetchPolicy: 'network-only'
             }).then(resp => {
                 setCartSize(resp.data.removeFromCart);
-                openNoti("success", "Removed From Cart!");
+                enqueueSnackbar(noti("cartremoved"), { variant: "success" });
             })
         } catch (error) {
-            openNoti("error", "Failed To Remove!");
+            enqueueSnackbar(noti("cartremovefailed"), { variant: "error" });
         }
     }
 
@@ -123,10 +129,10 @@ export default function CartSidebar({ toggleCartSide }: any) {
                 `, fetchPolicy: 'network-only'
             }).then(resp => {
                 setCartSize(resp.data.removeCertainItem);
-                openNoti("success", "Removed Certain Product!");
+                enqueueSnackbar(noti("cartclean1"), { variant: "success" });
             })
         } catch (error) {
-            openNoti("error", "Failed To Remove!");
+            enqueueSnackbar(noti("cartclean1failed"), { variant: "error" });
         }
     }
 
@@ -138,16 +144,7 @@ export default function CartSidebar({ toggleCartSide }: any) {
         popupOpen();
     }
 
-    const openNoti = (status: string, message: string) => {
-        setNotibox({
-            status: status,
-            show: true,
-            timeout: 3000,
-            message: message
-        })
-    };
-
-    return (
+    const DrawerUI = (
         <Box
             sx={{
                 width: 500, height: "100%", paddingBottom: "100px",
@@ -159,11 +156,11 @@ export default function CartSidebar({ toggleCartSide }: any) {
             }} role="presentation"
         >
             <Box sx={{ flexGrow: 1, p: 2, bgcolor: "#eeeeee", height: "100%" }}>
-                <Typography variant="h6">Cart Content</Typography>
+                <Typography variant="h6">{carts("cartcontent")}</Typography>
                 <List>
                     {
                         cart.length == 0 &&
-                        <div className="text-center w-full py-50 text-gray-400">No Cart Item Found!</div>
+                        <div className="text-center w-full py-50 text-gray-400">{carts("nocartitem")}</div>
                     }
                     {
                         cart.length > 0 && cart.map((cartItem, index) => (
@@ -177,29 +174,29 @@ export default function CartSidebar({ toggleCartSide }: any) {
                                             <Typography sx={{ fontSize: "0.8rem" }} >{"Category : Genre"}</Typography>
                                             <Typography component="span" sx={{ fontSize: "1.2rem" }}>{cartItem.productName}</Typography>
                                             <Typography component="div" variant="subtitle1" sx={{ color: 'text.secondary' }}>
-                                                Yen {formatAmount(cartItem.price)}
+                                                Yen {formatCurrency(cartItem.price)}
                                             </Typography>
                                         </CardContent>
                                         <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
-                                            <Tooltip title={<Typography sx={{ fontSize: '14px' }}>Remove One</Typography>} placement="bottom">
+                                            <Tooltip title={<Typography sx={{ fontSize: '14px' }}>{carts("removeone")}</Typography>} placement="bottom">
                                                 <IconButton size="large" color="inherit" onClick={() => removeLess(cartItem)}
                                                     sx={{ p: 0, ms: 2, transition: 'transform 0.2s', '&:hover': { transform: 'scale(1.2)' } }}>
                                                     <ArrowLeftRounded sx={{ height: 38, width: 38 }} />
                                                 </IconButton>
                                             </Tooltip>
 
-                                            <Tooltip title={<Typography sx={{ fontSize: '14px' }}>Quantity</Typography>} placement="bottom">
-                                                <Button sx={{ px: 1, mx: 1, minWidth: 'auto' }} color="inherit" >{formatAmount(cartItem.quantity)}</Button>
+                                            <Tooltip title={<Typography sx={{ fontSize: '14px' }}>{carts("qty")}</Typography>} placement="bottom">
+                                                <Button sx={{ px: 1, mx: 1, minWidth: 'auto' }} color="inherit" >{formatCurrency(cartItem.quantity)}</Button>
                                             </Tooltip>
 
-                                            <Tooltip title={<Typography sx={{ fontSize: '14px' }}>Add More</Typography>} placement="bottom">
+                                            <Tooltip title={<Typography sx={{ fontSize: '14px' }}>{carts("addmore")}</Typography>} placement="bottom">
                                                 <IconButton size="large" color="inherit" onClick={() => addMore(cartItem)}
                                                     sx={{ p: 0, ms: 2, transition: 'transform 0.2s', '&:hover': { transform: 'scale(1.2)' } }}>
                                                     <ArrowRightRounded sx={{ height: 38, width: 38 }} />
                                                 </IconButton>
                                             </Tooltip>
 
-                                            <Tooltip title={<Typography sx={{ fontSize: '14px' }}>Delete Type</Typography>} placement="bottom">
+                                            <Tooltip title={<Typography sx={{ fontSize: '14px' }}>{carts("deletetype")}</Typography>} placement="bottom">
                                                 <IconButton size="large" color="inherit" onClick={() => removeWhole(cartItem)}
                                                     sx={{ p: 1, ms: 2, transition: 'transform 0.2s', '&:hover': { transform: 'scale(1.2)' } }}>
                                                     <DeleteRounded sx={{ height: 25, width: 25, color: "red" }} />
@@ -224,24 +221,20 @@ export default function CartSidebar({ toggleCartSide }: any) {
             }}>
                 <div className="container">
                     <div className="flex justify-between mt-3">
-                        <p>Subtotal :</p><p className="flex items-center">Yen {getSubTotal()}</p>
+                        <p>{carts("subtotal")} :</p><p className="flex items-center">Yen {getSubTotal()}</p>
                     </div>
                     <div className="grid grid-cols-2 gap-4 mt-3">
-                        <Button fullWidth variant="outlined" sx={{
-                            borderColor: "#9CA3AF", color: "#374151", borderRadius: "999px",
-                            transition: "background-color 0.2s", "&:hover": { backgroundColor: "black", color: "white" }, textTransform: "none"
-                        }}>
-                            <ChecklistRounded sx={{ marginRight: 1 }} /> View Cart
-                        </Button>
-                        <Button href={"/fashion/clientstore/checkout/0"} onClick={toggleCartSide(false)} fullWidth variant="outlined" sx={{
-                            bgcolor: "black", color: "white", borderColor: "#9CA3AF", borderRadius: "999px",
-                            transition: "background-color 0.2s", "&:hover": { backgroundColor: "white", color: "black" }, textTransform: "none"
-                        }}>
-                            <CreditCardRounded sx={{ marginRight: 1 }} /> Checkout
-                        </Button>
+                        <ButtonWhiteBlack label={common("close")} startIcon={<CloseRounded />} onClickFunc={toggleCartSide(false)} />
+                        <ButtonBlackWhite label={carts('checkout')} endIcon={<CreditCardRounded />} onClickFunc={checkout} />
                     </div>
                 </div>
             </Box>
         </Box>
+    )
+
+    return (
+        <Drawer open={cartOpen} onClose={toggleCartSide(false)} anchor='right'>
+            {DrawerUI}
+        </Drawer>
     )
 }

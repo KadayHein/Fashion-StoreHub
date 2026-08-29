@@ -73,14 +73,14 @@ CREATE TABLE account (
 );
 
 -- Category
-INSERT INTO category(name)
+INSERT INTO category(name,bannerImageUrl)
 VALUES
-('T-Shirt'),
-('Jean'),
-('Pants'),
-('Blouse'),
-('Sneaker'),
-('Shoes');
+('Shirt','shirt_banner.png'),
+('Jean','jean_banner.png'),
+('Shoes',''),
+('Pants',''),
+('Blouse',''),
+('Sneaker','');
 
 -- Genre
 INSERT INTO genre(name, category_id)
@@ -88,7 +88,10 @@ VALUES
 ('Sticker',1),
 ('Polo',1),
 ('Low-Rise',2),
-('Jacket',2);
+('Jacket',2),
+('Cargo',2),
+('Ripped',2),
+('Vintage',2);
 
 -- Product
 INSERT INTO product

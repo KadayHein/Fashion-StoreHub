@@ -6,6 +6,13 @@ import SocialButtons from "./SocialButtons";
 import Link from "next/link";
 import { pink } from "@mui/material/colors";
 import { EmailRounded, KeyRounded, LoginRounded } from "@mui/icons-material";
+import { client } from "@/lib/apolloClient";
+import { gql } from "@apollo/client";
+import { enqueueSnackbar } from "notistack";
+import { saveLoggedInUser, storeToken } from "@/service/authHandler";
+import { useRouter } from "@/i18n/navigation";
+import { URL_WEBLOGO } from "@/service/routeHandler";
+import { CloseIcon } from "@/service/svgIconUtils";
 
 interface SignInProps {
     isSignUp: boolean;
@@ -13,11 +20,35 @@ interface SignInProps {
 
 export default function SignInForm({ isSignUp }: SignInProps) {
 
-    // useState
+    const router = useRouter()
     const [signInForm, setSignInForm] = useState<SignInForm>({ email: "", password: "" });
 
-
-    // Apollo Mutation
+    async function signIn() {
+        try {
+            await client.mutate<JwtSignInResponse>({
+                mutation: gql`
+                    mutation {
+                        signIn(signInForm : {
+                            email: "${signInForm.email}",
+                            password: "${signInForm.password}"
+                        }){
+                            token
+                            token_type
+                        }
+                    }
+                `
+            }).then(resp => {
+                enqueueSnackbar("Login Successful!", { variant: "success" });
+                const token = resp.data?.signIn.token;
+                storeToken(token);
+                saveLoggedInUser(signInForm.email);
+                router.push("/");
+            })
+        } catch (error) {
+            enqueueSnackbar(`Login Failed with Error ${error}`, { variant: "error" });
+        }
+        
+    }
 
     // handleLogin()
 
@@ -71,7 +102,7 @@ export default function SignInForm({ isSignUp }: SignInProps) {
         >
             <Box className="flex items-center">
                 <IconButton >
-                    <Avatar alt="Store Logo" src="/images/WEBLOGO.png" />
+                    <Avatar alt="Store Logo" src={URL_WEBLOGO} />
                 </IconButton>
                 <Typography
                     variant="h6"
@@ -103,9 +134,7 @@ export default function SignInForm({ isSignUp }: SignInProps) {
                             <input className={formstyle.input} name={btn.name} placeholder={btn.title}
                                 value={btn.value} onChange={onChangeHandler} required type={btn.type}></input>
                             <button className={formstyle.reset} type="reset" onClick={() => onResetHandler(btn.name)}>
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"></path>
-                                </svg>
+                                <CloseIcon/>
                             </button>
                         </div>
                     ))
@@ -144,7 +173,7 @@ export default function SignInForm({ isSignUp }: SignInProps) {
                 </div>
 
 
-                <Button variant="outlined" sx={{
+                <Button variant="outlined" onClick={signIn} sx={{
                     borderColor: "#9CA3AF", borderRadius: "10px", width: 260, backgroundColor: "black", color: "white",
                     transition: "background-color 0.2s", "&:hover": { backgroundColor: "white", color: "black" }, textTransform: "none"
                 }}>

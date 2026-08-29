@@ -9,6 +9,7 @@ type ID = number;
 type Category = {
   id: ID;
   name: string;
+  bannerImageUrl?: string;
   genres?: Genre[];
 };
 
@@ -16,6 +17,7 @@ type Genre = {
   id: ID;
   name: string;
   category?: Category;
+  products?: Product[]
 };
 
 type Product = {
@@ -58,6 +60,8 @@ type Filter = {
     fieldname?: string;
     datatype?: DataType;
     condition?: string;
+    value?: string | number
+    value2?: string | number
 }
 
 type FilterOption = {
@@ -70,6 +74,13 @@ type FilterOption = {
 
 type FilterDataset = {
   filterList: Filter[]
+}
+
+type ButtonProps = {
+  label: string;
+  startIcon?: OverridableComponent<SvgIconTypeMap<{}, "svg">>;
+  endIcon?: OverridableComponent<SvgIconTypeMap<{}, "svg">>;
+  onClickFunc?: React.MouseEventHandler<HTMLButtonElement>
 }
 
 type Game = {
@@ -156,6 +167,62 @@ type Account = {
     createdAt?: string;
 }
 
+// Inventory / Stock Manager / Stock Reports
+
+type ReportPeriod =
+    | "DAILY"
+    | "WEEKLY"
+    | "MONTHLY"
+    | "YEARLY";
+
+
+type ReportType =
+    | "BALANCE"
+    | "TRANSFER"
+    | "ADJUSTMENT"
+    | "VALUATION";
+
+
+interface ReportItem {
+    id: string;
+    type: ReportType;
+    title: string;
+    submittedBy: string;
+    submittedAt: string;
+    period: ReportPeriod;
+}
+
+// Inventory / NewArrival.tsx
+
+type ArrivalStatus =
+  | "UPCOMING"
+  | "AVAILABLE"
+  | "LIMITED";
+
+type PromotionType =
+  | "FIRST_SALES"
+  | "BULK"
+  | "BOTH"
+  | "NONE";
+
+interface NewArrival {
+  id: number;
+  name: string;
+  sku: string;
+  image: string;
+  availableOn: string;
+  status: ArrivalStatus;
+  colors: string[];
+  sizes: string[];
+  price: number;
+  discount?: number;
+  promotionType: PromotionType;
+  firstSalesLimit?: number;
+  bulkMinimum?: number;
+  bulkDiscount?: number;
+  description: string;
+}
+
 // ===== Input Types =====
 
 type CartItemInput = {
@@ -179,11 +246,7 @@ type SignInForm = {
     username?: string;
     email: string;
     password: string;
-}
-
-type SecurityInfo = {
-    token: string;
-    account: Account;
+    phoneNumber?: string;
 }
 
 // ===== Query Response Types =====
@@ -222,6 +285,14 @@ type ProductsByGenreIdResponse = {
   productsByGenreId?: Product[];
 };
 
+type ProductsByTextResponse = {
+  productsByText?: Product[];
+}
+
+type ProductsFilterResponse = {
+  filterProducts?: Product[];
+}
+
 type ProductByIdResponse = {
   productById?: Product;
 };
@@ -246,6 +317,20 @@ type TrendingsResponse = {
   trendings?: {syskey : number,
     product : Product}[];
 };
+
+type JwtSignInResponse = {
+    signIn : {
+      token: string;
+      token_type: string;
+    }
+}
+
+type JwtSignUpResponse = {
+    signUp : {
+      token: string;
+      token_type: string;
+    }
+}
 
 type AllGamesResponse = {
   allGames?: Game[];
@@ -288,7 +373,7 @@ type TopupResponse = {
 };
 
 interface SignInResponse {
-    signIn: SecurityInfo;
+    signIn: JwtRespDTO;
 }
 
 }

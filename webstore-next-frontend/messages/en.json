@@ -1,0 +1,255 @@
+{
+    "common": {
+        "save": "Save",
+        "cancel": "Cancel",
+        "edit": "Edit",
+        "delete": "Delete",
+        "create": "Create",
+        "close": "Close",
+        "search": "Search",
+        "filter": "Filter",
+        "refresh": "Refresh",
+        "export": "Export",
+        "loading": "Loading",
+        "noData": "No data available",
+        "explore": "Explore",
+        "category": "Category",
+        "genre": "Genre",
+        "genres": "Genres.",
+        "productName": "Product Name",
+        "price": "Price",
+        "size": "Size",
+        "color": "Color"
+    },
+    "nav": {
+        "home": "Home",
+        "about": "About",
+        "showroom": "Showroom",
+        "cart": "Cart",
+        "noti": "Notifications",
+        "admin_panel": "Admin Panel",
+        "open_settings": "Open Settings",
+        "profile": "Profile",
+        "lang": "Language",
+        "darkmode": "Dark Mode",
+        "lightmode": "Light Mode",
+        "login": "Login",
+        "logout": "Logout"
+    },
+    "home": {
+        "landingheader": "Discover Your Style.",
+        "landingsubheader": "Explore our virtual showroom, try different fits, and browse multiple fashion categories to find what suits you best.",
+        "landingsubheader2": "See it. Try it. Love your style.",
+        "header": "Featured Products",
+        "subheader": "Gadei StoreHub. Online Fashion Shopping - Be Smart - Act Less - Neat Style - Local Order Available!",
+        "subheader2": "Fresh styles, smart choices, and everything you need in one place.",
+        "ep_cards": {},
+        "feature_cards": {
+            "trend": "<red>Trend</red> Now.",
+            "trendSub": "Brand New & Best Selling Products on <red>Hot</red> are waiting there for u. <br></br>Drag the Flash! <br></br>Get the Best!",
+            "explore": "<red>Explore</red> Showroom.",
+            "exploreSub": "Visit Around Showroom to get out Item displayed for your pleasure.",
+            "exploreNav": "Go to Showroom",
+            "createAcc": "<red>Create</red> Account.",
+            "moreChanceSub": "For More Discounts, Coupons, Cashback & Presents.",
+            "createAccNav": "Sign Up",
+            "membership": "<red>Membership</red> Plan.",
+            "membershipNav": "Apply Member",
+            "newArrivals": "<red>New</red> Arrivals.",
+            "newArrivalsSub": "Upcoming products on schedule right there on customer's sight."
+        },
+        "showroomheader": "Shop by Category",
+        "showroomsubheader": "Browse products from your favorite categories."
+    },
+    "about": {
+        "title": "About GD Fashion Store",
+        "intro": "Welcome to GD Fashion Store — a fashion destination created to make stylish, comfortable and quality clothing accessible to everyone.",
+        "store": {
+            "title": "About GD Fashion Store",
+            "description1": "GD Fashion Store is an online fashion store focused on providing a variety of modern outfits for different styles, occasions and lifestyles.",
+            "description2": "Our goal is to create a simple and enjoyable shopping experience where customers can discover clothing they love without unnecessary complexity."
+        },
+        "founder": {
+            "title": "Founder & Owner",
+            "name": "Min Myo Aung",
+            "description": "Founder and owner of GD Fashion Store, responsible for the direction of the brand, product selection and overall vision of the store."
+        },
+        "vision": {
+            "title": "Our Vision",
+            "description": "Our vision is to build a trusted fashion brand where customers can confidently find clothing that matches their personality, lifestyle and individual sense of style."
+        },
+        "values": {
+            "title": "What We Value",
+            "quality": {
+                "title": "Quality",
+                "description": "We aim to provide products that meet our quality expectations."
+            },
+            "style": {
+                "title": "Style",
+                "description": "We continuously look for styles that match modern fashion trends."
+            },
+            "customers": {
+                "title": "Customers",
+                "description": "Customer satisfaction is at the heart of our business."
+            }
+        },
+        "suppliers": {
+            "title": "Suppliers & Product Partners",
+            "description1": "GD Fashion Store works with selected suppliers and product partners to source fashion items for our customers.",
+            "description2": "We carefully consider product quality, design, availability and value when selecting products for our store.",
+            "fashionSuppliers": "Fashion Suppliers",
+            "clothingPartners": "Clothing Partners",
+            "productVendors": "Product Vendors"
+        },
+        "promise": {
+            "title": "Our Promise",
+            "description": "We aim to make every step of the shopping experience straightforward — from discovering products to placing an order and receiving your items."
+        },
+        "development": {
+            "title": "Website Development",
+            "description1": "The GD Fashion Store website was designed and developed by",
+            "description2": "The platform was developed to provide a modern, responsive and user-friendly shopping experience across desktop and mobile devices."
+        },
+        "copyright": {
+            "title": "Copyright & Intellectual Property",
+            "rights": "All rights reserved.",
+            "description": "All original website content, design elements and software developed specifically for GD Fashion Store are protected by applicable intellectual property rights."
+        },
+        "footer": {
+            "message": "Wear Your Style. Be Yourself.",
+            "thankYou": "Thank you for choosing GD Fashion Store."
+        }
+    },
+    "filtering": {
+        "by": "Filter By",
+        "condition": "condition",
+        "match": "Match with",
+        "cancel": "Cancel Filter",
+        "set": "Set Filter",
+        "add": "Add Filter",
+        "remove": "Remove Filter",
+        "filterCondition": {
+            "ct": "Contains",
+            "eq": "Equals",
+            "bw": "Begin with",
+            "ew": "End with",
+            "gt": "Greater than",
+            "lt": "Less than",
+            "geq": "Greater than or Equals",
+            "leq": "Less than or Equals",
+            "bt": "Between"
+        }
+    },
+    "noti": {
+        "cartadded": "Successfully Added to Cart!",
+        "cartaddfailed": "Failed to add item to Cart!",
+        "cartremoved": "Item Removed from Cart!",
+        "cartremovefailed": "Failed to remove item from Cart!",
+        "cartclean1": "All of certain Item Removed from Cart!",
+        "cartclean1failed": "Failed to Remove certain Item from Cart!",
+        "fail2loadCat": "Failed to load Categories!",
+        "fail2loadCat&Gn": "Failed to load Category & Genres!",
+        "fail2loadProduct": "Failed to load Products!",
+        "fail2loadCart": "Failed to load Cart Items!",
+        "fail2searchProduct": "Failed to search Products!",
+        "fail2filterProduct": "Failed to filter Products!",
+        "logoutsuccess": "Logout Successful!",
+        "nogenre": "No Genre Available!",
+        "noproduct": "No Product Available!",
+        "searchresults": "Searched Results",
+        "noproductfound": "No Product found for "
+    },
+    "carts": {
+        "cartcontent": "Cart Content",
+        "nocartitem": "No Cart Item Found!",
+        "viewCart": "View Cart",
+        "checkout": "Checkout",
+        "add2cart": "Add to Cart",
+        "add2fav": "Add to Favourite",
+        "qty": "Quantity",
+        "addmore": "Add More",
+        "removeone": "Remove One",
+        "deletetype": "Delete Type",
+        "subtotal": "Subtotal",
+        "pcs": "pcs",
+        "items": "Items"
+    },
+    "checkout": {
+        "steps": {
+            "orderConfirmation": "Order Confirmation",
+            "shipping": "Shipping",
+            "authentication": "Authentication",
+            "payment": "Payment",
+            "complete": "Complete"
+        },
+        "subheaders": {
+            "orderConfirmation": "Confirm your order",
+            "shipping": "Delivery Information",
+            "payment": "Allow to link Payment Authentication",
+            "authentication": "Choose your payment method",
+            "complete": "Payment Complete"
+        },
+        "buttons": {
+            "backToShopping": "Back to Shopping",
+            "back": "Back",
+            "confirm": "Confirm",
+            "allowContinue": "Allow & Continue",
+            "cancel": "Cancel",
+            "viewOrder": "View Order",
+            "continueShopping": "Continue Shopping"
+        },
+        "infobox": {
+            "customerName": "Customer Name",
+            "customerEmail": "Customer Email",
+            "contactNumber": "Contact Number",
+            "postalCode": "Postal Code",
+            "prefecture": "Prefecture",
+            "cityWard": "City / Ward",
+            "townBlock": "Town / Block",
+            "buildingRoom": "Building / Room"
+        },
+        "payment": {
+            "mobileWallet": "Digital Wallet",
+            "bankTransfer": "Bank Transfer",
+            "cardPayment": "Card Payment",
+            "cashOnDelivery": "Cash on Delivery",
+            "selectAtLeastOne": "Please choose at least one payment method.",
+            "connectTitle": "Connect {paymentName}",
+            "connectDescription": "Connect your {paymentName} account with GD-StoreHub to continue with your payment.",
+            "willBeAllowedTo": "{paymentName} will be allowed to:",
+            "confirmPayment": "Confirm your payment",
+            "processPaymentAmount": "Process the selected payment amount",
+            "returnPaymentStatus": "Return payment status to GD-Store Hub",
+            "paymentAmount": "Payment Amount",
+            "simulationNotice": "This is a payment simulation. No real payment will be processed."
+        },
+        "paymentComplete": {
+            "successTitle": "Payment Successful!",
+            "thankYou": "Thank you for your order, {customerName}.",
+            "paymentCompleted": "Your payment has been successfully completed.",
+            "orderConfirmed": "Order Confirmed",
+            "orderNumber": "Order Number",
+            "orderDate": "Order Date",
+            "deliveryInformation": "Delivery Information",
+            "estimatedArrival": "Estimated Arrival",
+            "shippingAddress": "Shipping Address",
+            "standardDelivery": "Standard Delivery",
+            "paymentInformation": "Payment Information",
+            "paymentCompletedShort": "Payment completed",
+            "orderSummary": "Order Summary",
+            "items": "Items",
+            "itemCount": "items",
+            "subtotal": "Subtotal",
+            "shipping": "Shipping",
+            "total": "Total",
+            "viewOrder": "View Order",
+            "continueShopping": "Continue Shopping"
+        }
+    },
+    "language": {
+        "label": "Language",
+        "english": "English",
+        "japanese": "Japanese",
+        "burmese": "Burmese"
+    }
+}

@@ -1,6 +1,6 @@
 import { Stack } from '@mui/material';
 import SaleInfo from './SaleInfo';
-import { saleInfoData } from '@/admin-components/data/Outfit-Hub/sale-info-data';
+import { saleInfoData } from '@/admin-components/data/admin_panel/sale-info-data';
 
 const SaleInfoCards = () => {
   return (
